@@ -10,9 +10,7 @@ public class Point {
     }
 
     public String toString() {
-        return "Point :" +
-                "X: " + getX() +
-                "Y: " + getY();
+        return getX() + ", " + getY();
     }
 
     public int getX() {

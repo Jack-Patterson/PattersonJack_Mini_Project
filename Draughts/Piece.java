@@ -14,7 +14,7 @@ public class Piece extends Point {
 
     public String toString() {
         return "Piece: " +
-                "Co-ordinate: \"" + x + "," + y +
+                "Co-ordinate: \"" + super.getX() + "," + super.getY() +
                 "\" Colour: " + getColour() +
                 " Is a King: " + isKing() +
                 " Is Captured: " + isCaptured();
