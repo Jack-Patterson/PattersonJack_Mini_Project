@@ -1,29 +1,30 @@
 package Draughts;
 
 public class Piece extends Point {
-    private int colour;
+    private String colour;
     private boolean isKing;
     private boolean isCaptured;
 
-    public Piece(int x, int y, int colour, boolean isKing, boolean isCaptured) {
+    public Piece(int x, int y, String colour, boolean isKing, boolean isCaptured) {
         super(x, y);
-        this.colour = colour;
-        this.isKing = isKing;
-        this.isCaptured = isCaptured;
+        setColour(colour);
+        setKing(isKing);
+        setCaptured(isCaptured);
     }
 
     public String toString() {
         return "Piece: " +
-                "Colour: " + getColour() +
-                "Is a King: " + isKing +
-                "Is Captured: " + isCaptured;
+                "Co-ordinate: \"" + x + "," + y +
+                "\" Colour: " + getColour() +
+                " Is a King: " + isKing() +
+                " Is Captured: " + isCaptured();
     }
 
-    public int getColour() {
+    public String getColour() {
         return colour;
     }
 
-    public void setColour(int colour) {
+    public void setColour(String colour) {
         this.colour = colour;
     }
 
@@ -42,6 +43,5 @@ public class Piece extends Point {
     public void setCaptured(boolean captured) {
         isCaptured = captured;
     }
-
 
 }
