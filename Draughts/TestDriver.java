@@ -48,24 +48,12 @@ public class TestDriver {
 
         AllPoints(allPoints, po1, po3, po2, po4, po5, po6, po7, po8, po9, po10, po11, po12, po13, po14, po15, po16, po17, po19, po18, po20, po21, po22, po23, po24, po25, po26, po27, po28, po29, po30, po31, po32);
         AllPieces(allPieces, p1);
-        boolean valid = false;
-        int invalid = 0;
-        for (Point po:allPoints){
-            if (po.getX() == p1.getX() && po.getY() == p1.getY()){
-                valid = true;
-                System.out.println("valid");
-                break;
-            }
-        }
-        if (valid == false){
-            System.out.println("invalid");
-        }
+        Validator.isValidPoint(allPoints, allPieces);
 
         Point move1 = new Point(0,0);
         Point move2 = new Point(0,0);
         Point move3 = new Point(0,0);
         Point move4 = new Point(0,0);
-
 
         for (Piece p:allPieces) {
             if (p.getColour().equals("black")) {
@@ -89,6 +77,7 @@ public class TestDriver {
                 }
                 }
                 if(p.isKing() == true){
+                    System.out.println("\nBecause you are a king you also have the following moves:");
                     if (p.getX() != 1 && p.getY() != 1) {
                         move3.setX(p.getX() - 1);
                         move3.setY(p.getY() - 1);
