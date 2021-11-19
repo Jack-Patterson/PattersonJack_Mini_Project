@@ -9,6 +9,11 @@ public class Point {
         setY(y);
     }
 
+    public Point(){
+        setX(0);
+        setY(0);
+    }
+
     public String toString() {
         return getX() + "," + getY();
     }

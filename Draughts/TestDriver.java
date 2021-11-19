@@ -1,14 +1,35 @@
 package Draughts;
 
-import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Locale;
+import java.util.Scanner;
 
 public class TestDriver {
     public static void main(String[] args) {
 
-
-        Piece p1 = new Piece(3, 7, "black", true, true);
+        Piece pbl1 = new Piece(2, 2, "brown", false, false);
+        Piece pbl2 = new Piece(2, 2, "brown", false, false);
+        Piece pbl3 = new Piece(2, 2, "brown", false, false);
+        Piece pbl4 = new Piece(2, 2, "brown", false, false);
+        Piece pbl5 = new Piece(2, 2, "brown", false, false);
+        Piece pbl6 = new Piece(2, 2, "brown", false, false);
+        Piece pbl7 = new Piece(2, 2, "brown", false, false);
+        Piece pbl8 = new Piece(2, 2, "brown", false, false);
+        Piece pbl9 = new Piece(2, 2, "brown", false, false);
+        Piece pbl10 = new Piece(2, 2, "brown", false, false);
+        Piece pbl11 = new Piece(2, 2, "brown", false, false);
+        Piece pbl12 = new Piece(2, 2, "brown", false, false);
+        Piece pbr1 = new Piece(2, 2, "brown", false, false);
+        Piece pbr2 = new Piece(2, 2, "brown", false, false);
+        Piece pbr3 = new Piece(2, 2, "brown", false, false);
+        Piece pbr4 = new Piece(2, 2, "brown", false, false);
+        Piece pbr5 = new Piece(2, 2, "brown", false, false);
+        Piece pbr6 = new Piece(2, 2, "brown", false, false);
+        Piece pbr7 = new Piece(2, 2, "brown", false, false);
+        Piece pbr8 = new Piece(2, 2, "brown", false, false);
+        Piece pbr9 = new Piece(2, 2, "brown", false, false);
+        Piece pbr10 = new Piece(2, 2, "brown", false, false);
+        Piece pbr11 = new Piece(2, 2, "brown", false, false);
+        Piece pbr12 = new Piece(2, 2, "brown", false, false);
 
         ArrayList<Piece> allPieces = new ArrayList<Piece>();
         ArrayList<Point> allPoints = new ArrayList<Point>();
@@ -47,55 +68,33 @@ public class TestDriver {
 
 
         AllPoints(allPoints, po1, po3, po2, po4, po5, po6, po7, po8, po9, po10, po11, po12, po13, po14, po15, po16, po17, po19, po18, po20, po21, po22, po23, po24, po25, po26, po27, po28, po29, po30, po31, po32);
-        AllPieces(allPieces, p1);
-        Validator.isValidPoint(allPoints, allPieces);
+        AllPieces(allPieces, pbl1, pbl2, pbl3, pbl4, pbl5, pbl6, pbl7, pbl8, pbl9, pbl10, pbl11, pbl12, pbr1, pbr2, pbr3, pbr4, pbr5, pbr6, pbr7, pbr8, pbr9, pbr10, pbr11, pbr12);
+        Validator.isValidPointArray(allPoints, allPieces);
 
-        Point move1 = new Point(0,0);
-        Point move2 = new Point(0,0);
-        Point move3 = new Point(0,0);
-        Point move4 = new Point(0,0);
+        Point move1 = new Point();
+        Point move2 = new Point();
+        Point move3 = new Point();
+        Point move4 = new Point();
 
-        for (Piece p:allPieces) {
-            if (p.getColour().equals("black")) {
-                System.out.println("Choose your move!");
-                if (p.getX() != 1 && p.getY() != 8) {
-                    move1.setX(p.getX() - 1);
-                    move1.setY(p.getY() + 1);
-                    System.out.println("Move 1: Move from " + p.getX() + "," + p.getY() + " to " + move1.toString());
-                }
-                else {
-                    System.out.println("Move 1: Invalid Move");
-                }
-
-                if (p.getX() != 8 && p.getY() != 8) {
-                    move2.setX(p.getX() + 1);
-                    move2.setY(p.getY() + 1);
-                    System.out.println("Move 2: Move from " + p.getX() + "," + p.getY() + " to " + move2.toString());
-                }
-                else {
-                    System.out.println("Move 2: Invalid Move");
-                }
-                }
-                if(p.isKing() == true){
-                    System.out.println("\nBecause you are a king you also have the following moves:");
-                    if (p.getX() != 1 && p.getY() != 1) {
-                        move3.setX(p.getX() - 1);
-                        move3.setY(p.getY() - 1);
-                        System.out.println("Move 3: Move from " + p.getX() + "," + p.getY() + " to " + move3.toString());
-                    }
-                    else {
-                        System.out.println("Move 3: Invalid Move");
-                    }
-
-                    if (p.getX() != 8 && p.getY() != 1) {
-                        move4.setX(p.getX() + 1);
-                        move4.setY(p.getY() - 1);
-                        System.out.println("Move 4: Move from " + p.getX() + "," + p.getY() + " to " + move4.toString());
-                    }
-                    else {
-                        System.out.println("Move 4: Invalid Move");
-                    }
-                }
+        Piece.moveChooser(allPieces,move1,move2,move3,move4);
+        String chooseMove = "";
+        Scanner input = new Scanner(System.in);
+        System.out.println("Please choose a move:");
+            chooseMove = input.nextLine();
+            int moveChosen = Integer.parseInt(chooseMove);
+        switch (moveChosen){
+            case 1:
+                System.out.println(move1.toString());
+                break;
+            case 2:
+                System.out.println(move2.toString());
+                break;
+            case 3:
+                System.out.println(move3.toString());
+                break;
+            case 4:
+                System.out.println(move4.toString());
+                break;
         }
 
     }
@@ -137,7 +136,30 @@ public class TestDriver {
         allPoints.add(po32);
     }
 
-    private static void AllPieces (ArrayList<Piece> allPieces, Piece p1){
-        allPieces.add(p1);
+    private static void AllPieces (ArrayList<Piece> allPieces, Piece pbl1, Piece pbl2, Piece pbl3, Piece pbl4, Piece pbl5, Piece pbl6, Piece pbl7, Piece pbl8, Piece pbl9, Piece pbl10, Piece pbl11, Piece pbl12, Piece pbr1, Piece pbr2, Piece pbr3, Piece pbr4, Piece pbr5, Piece pbr6, Piece pbr7, Piece pbr8, Piece pbr9, Piece pbr10, Piece pbr11, Piece pbr12){
+        allPieces.add(pbl1);
+        allPieces.add(pbl2);
+        allPieces.add(pbl3);
+        allPieces.add(pbl4);
+        allPieces.add(pbl5);
+        allPieces.add(pbl6);
+        allPieces.add(pbl7);
+        allPieces.add(pbl8);
+        allPieces.add(pbl9);
+        allPieces.add(pbl10);
+        allPieces.add(pbl11);
+        allPieces.add(pbl12);
+        allPieces.add(pbr1);
+        allPieces.add(pbr2);
+        allPieces.add(pbr3);
+        allPieces.add(pbr4);
+        allPieces.add(pbr5);
+        allPieces.add(pbr6);
+        allPieces.add(pbr7);
+        allPieces.add(pbr8);
+        allPieces.add(pbr9);
+        allPieces.add(pbr10);
+        allPieces.add(pbr11);
+        allPieces.add(pbr12);
     }
 }
