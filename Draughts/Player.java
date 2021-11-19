@@ -1,15 +1,23 @@
 package Draughts;
 
-public class Player extends Piece {
+import javax.swing.*;
+import java.util.ArrayList;
+
+public class Player {
     private String playerName;
     private String playerColour;
     private boolean isTheirTurn;
 
-    public Player(int x, int y, String colour, boolean isKing, boolean isCaptured, String playerName, String playerColour, boolean isTheirTurn) {
-        super(x, y, colour, isKing, isCaptured);
+    public Player(String playerName, String playerColour, boolean isTheirTurn) {
         setPlayerName(playerName);
         setPlayerColour(playerColour);
         setTheirTurn(isTheirTurn);
+    }
+
+    public Player(){
+        setPlayerName(JOptionPane.showInputDialog("Please enter a player name."));
+        setPlayerColour(JOptionPane.showInputDialog("Please enter a colour."));
+        setTheirTurn(false);
     }
 
     public String getPlayerName() {
@@ -41,5 +49,20 @@ public class Player extends Piece {
                 "Player Name: " + getPlayerName() +
                 " Player Colour: " + getPlayerColour() +
                 " Is Their Turn: " + isTheirTurn();
+    }
+
+    public static void isPlayerTurn (Player pl1, Player pl2, int turnCounter){
+        if (turnCounter == 0){
+            turnCounter++;
+            pl1.setTheirTurn(true);
+        }
+        else if (turnCounter % 2 == 0){
+            pl1.setTheirTurn(false);
+            pl2.setTheirTurn(true);
+        }
+        else if (turnCounter % 2 == 1){
+            pl2.setTheirTurn(false);
+            pl1.setTheirTurn(true);
+        }
     }
 }

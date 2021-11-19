@@ -114,8 +114,12 @@ public class Piece extends Point {
         }
     }
 
-    public static void pieceChooser(ArrayList<Piece> allPieces){
+    public static void pieceChooser(ArrayList<Piece> allPieces, Player pl1, Player pl2){
+        for (Piece p:allPieces){
+            if (pl1.isTheirTurn() == true){
 
+            }
+        }
     }
 
 }

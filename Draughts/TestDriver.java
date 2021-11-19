@@ -5,6 +5,10 @@ import java.util.Scanner;
 
 public class TestDriver {
     public static void main(String[] args) {
+        int turnCounter = 0;
+
+        Player pl1 = new Player("Test Name 1", "black", false);
+        Player pl2 = new Player("Test Name 2", "brown", false);
 
         Piece pbl1 = new Piece(2, 2, "brown", false, false);
         Piece pbl2 = new Piece(2, 2, "brown", false, false);
@@ -32,6 +36,9 @@ public class TestDriver {
         Piece pbr12 = new Piece(2, 2, "brown", false, false);
 
         ArrayList<Piece> allPieces = new ArrayList<Piece>();
+        ArrayList<Piece> allBlackPieces = new ArrayList<Piece>();
+        ArrayList<Piece> allBrownPieces = new ArrayList<Piece>();
+
         ArrayList<Point> allPoints = new ArrayList<Point>();
         Point po1 = new Point(1,1);
         Point po3 = new Point(1,3);
@@ -66,15 +73,27 @@ public class TestDriver {
         Point po31 = new Point(8,6);
         Point po32 = new Point(8,8);
 
-
-        AllPoints(allPoints, po1, po3, po2, po4, po5, po6, po7, po8, po9, po10, po11, po12, po13, po14, po15, po16, po17, po19, po18, po20, po21, po22, po23, po24, po25, po26, po27, po28, po29, po30, po31, po32);
-        AllPieces(allPieces, pbl1, pbl2, pbl3, pbl4, pbl5, pbl6, pbl7, pbl8, pbl9, pbl10, pbl11, pbl12, pbr1, pbr2, pbr3, pbr4, pbr5, pbr6, pbr7, pbr8, pbr9, pbr10, pbr11, pbr12);
-        Validator.isValidPointArray(allPoints, allPieces);
-
         Point move1 = new Point();
         Point move2 = new Point();
         Point move3 = new Point();
         Point move4 = new Point();
+
+        AllPoints(allPoints, po1, po3, po2, po4, po5, po6, po7, po8, po9, po10, po11, po12, po13, po14, po15, po16, po17, po19, po18, po20, po21, po22, po23, po24, po25, po26, po27, po28, po29, po30, po31, po32);
+        AllPieces(allPieces, pbl1, pbl2, pbl3, pbl4, pbl5, pbl6, pbl7, pbl8, pbl9, pbl10, pbl11, pbl12, pbr1, pbr2, pbr3, pbr4, pbr5, pbr6, pbr7, pbr8, pbr9, pbr10, pbr11, pbr12);
+        AllBlackPieces(allBlackPieces, pbl1, pbl2, pbl3, pbl4, pbl5, pbl6, pbl7, pbl8, pbl9, pbl10, pbl11, pbl12);
+        AllBrownPieces(allBrownPieces, pbr1, pbr2, pbr3, pbr4, pbr5, pbr6, pbr7, pbr8, pbr9, pbr10, pbr11, pbr12);
+        Validator.isValidPointArray(allPoints, allPieces);
+
+        boolean gameOver = false;
+        while (gameOver){
+            Player.isPlayerTurn(pl1, pl2, turnCounter);
+
+
+
+
+
+
+        }
 
         Piece.moveChooser(allPieces,move1,move2,move3,move4);
         String chooseMove = "";
@@ -162,4 +181,35 @@ public class TestDriver {
         allPieces.add(pbr11);
         allPieces.add(pbr12);
     }
+
+    private static void AllBlackPieces (ArrayList<Piece> allBlackPieces, Piece pbl1, Piece pbl2, Piece pbl3, Piece pbl4, Piece pbl5, Piece pbl6, Piece pbl7, Piece pbl8, Piece pbl9, Piece pbl10, Piece pbl11, Piece pbl12){
+        allBlackPieces.add(pbl1);
+        allBlackPieces.add(pbl2);
+        allBlackPieces.add(pbl3);
+        allBlackPieces.add(pbl4);
+        allBlackPieces.add(pbl5);
+        allBlackPieces.add(pbl6);
+        allBlackPieces.add(pbl7);
+        allBlackPieces.add(pbl8);
+        allBlackPieces.add(pbl9);
+        allBlackPieces.add(pbl10);
+        allBlackPieces.add(pbl11);
+        allBlackPieces.add(pbl12);
+    }
+
+    private static void AllBrownPieces (ArrayList<Piece> allBrownPieces, Piece pbr1, Piece pbr2, Piece pbr3, Piece pbr4, Piece pbr5, Piece pbr6, Piece pbr7, Piece pbr8, Piece pbr9, Piece pbr10, Piece pbr11, Piece pbr12){
+        allBrownPieces.add(pbr1);
+        allBrownPieces.add(pbr2);
+        allBrownPieces.add(pbr3);
+        allBrownPieces.add(pbr4);
+        allBrownPieces.add(pbr5);
+        allBrownPieces.add(pbr6);
+        allBrownPieces.add(pbr7);
+        allBrownPieces.add(pbr8);
+        allBrownPieces.add(pbr9);
+        allBrownPieces.add(pbr10);
+        allBrownPieces.add(pbr11);
+        allBrownPieces.add(pbr12);
+    }
+
 }
