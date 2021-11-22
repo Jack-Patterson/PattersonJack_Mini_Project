@@ -1,7 +1,6 @@
 package Draughts;
 
 import javax.swing.*;
-import java.util.ArrayList;
 
 public class Player {
     private String playerName;

@@ -27,7 +27,8 @@ public class Validator {
         boolean validPoint = false;
         for (Point po:allPoints){
             if (po.getX() == move.getX() && po.getY() == move.getY()) {
-                validPoint = true;break;
+                validPoint = true;
+                break;
             }
         }
         if (validPoint == true){
@@ -50,6 +51,30 @@ public class Validator {
         }
         else {
             return true;
+        }
+    }
+
+    public static boolean chooseMoveValidate(String chooseMove){
+        int counter = 0;
+        for (int i = 0; i < chooseMove.length(); i++){
+            if (chooseMove.charAt(i) >= 0 && chooseMove.charAt(i) <= 9){
+                counter++;
+            }
+        }
+        if (counter == chooseMove.length() - 1){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public static boolean isNumber(Point move){
+        if (move.getX() >= 3 && move.getX() <= 9 && move.getY() >= 1 && move.getY() <= 9){
+            return true;
+        }
+        else {
+            return false;
         }
     }
 

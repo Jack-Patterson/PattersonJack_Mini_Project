@@ -10,30 +10,30 @@ public class TestDriver {
         Player pl1 = new Player("Test Name 1", "black", false);
         Player pl2 = new Player("Test Name 2", "brown", false);
 
-        Piece pbl1 = new Piece(2, 2, "brown", false, false);
-        Piece pbl2 = new Piece(2, 2, "brown", false, false);
-        Piece pbl3 = new Piece(2, 2, "brown", false, false);
-        Piece pbl4 = new Piece(2, 2, "brown", false, false);
-        Piece pbl5 = new Piece(2, 2, "brown", false, false);
-        Piece pbl6 = new Piece(2, 2, "brown", false, false);
-        Piece pbl7 = new Piece(2, 2, "brown", false, false);
-        Piece pbl8 = new Piece(2, 2, "brown", false, false);
-        Piece pbl9 = new Piece(2, 2, "brown", false, false);
-        Piece pbl10 = new Piece(2, 2, "brown", false, false);
-        Piece pbl11 = new Piece(2, 2, "brown", false, false);
-        Piece pbl12 = new Piece(2, 2, "brown", false, false);
-        Piece pbr1 = new Piece(2, 2, "brown", false, false);
-        Piece pbr2 = new Piece(2, 2, "brown", false, false);
-        Piece pbr3 = new Piece(2, 2, "brown", false, false);
-        Piece pbr4 = new Piece(2, 2, "brown", false, false);
-        Piece pbr5 = new Piece(2, 2, "brown", false, false);
-        Piece pbr6 = new Piece(2, 2, "brown", false, false);
-        Piece pbr7 = new Piece(2, 2, "brown", false, false);
-        Piece pbr8 = new Piece(2, 2, "brown", false, false);
-        Piece pbr9 = new Piece(2, 2, "brown", false, false);
-        Piece pbr10 = new Piece(2, 2, "brown", false, false);
-        Piece pbr11 = new Piece(2, 2, "brown", false, false);
-        Piece pbr12 = new Piece(2, 2, "brown", false, false);
+        Piece pbl1 = new Piece(1, 1, "black", false, false);
+        Piece pbl2 = new Piece(1, 3, "black", false, false);
+        Piece pbl3 = new Piece(1, 5, "black", false, false);
+        Piece pbl4 = new Piece(1, 7, "black", false, false);
+        Piece pbl5 = new Piece(2, 2, "black", false, false);
+        Piece pbl6 = new Piece(2, 4, "black", false, false);
+        Piece pbl7 = new Piece(2, 6, "black", false, false);
+        Piece pbl8 = new Piece(2, 8, "black", false, false);
+        Piece pbl9 = new Piece(3, 1, "black", false, false);
+        Piece pbl10 = new Piece(3, 3, "black", false, false);
+        Piece pbl11 = new Piece(3, 5, "black", false, false);
+        Piece pbl12 = new Piece(3, 7, "black", false, false);
+        Piece pbr1 = new Piece(6, 2, "brown", false, false);
+        Piece pbr2 = new Piece(6, 4, "brown", false, false);
+        Piece pbr3 = new Piece(6, 6, "brown", false, false);
+        Piece pbr4 = new Piece(6, 8, "brown", false, false);
+        Piece pbr5 = new Piece(7, 1, "brown", false, false);
+        Piece pbr6 = new Piece(7, 3, "brown", false, false);
+        Piece pbr7 = new Piece(7, 5, "brown", false, false);
+        Piece pbr8 = new Piece(7, 7, "brown", false, false);
+        Piece pbr9 = new Piece(8, 2, "brown", false, false);
+        Piece pbr10 = new Piece(8, 4, "brown", false, false);
+        Piece pbr11 = new Piece(8, 6, "brown", false, false);
+        Piece pbr12 = new Piece(8, 8, "brown", false, false);
 
         ArrayList<Piece> allPieces = new ArrayList<Piece>();
         ArrayList<Piece> allBlackPieces = new ArrayList<Piece>();
@@ -84,37 +84,21 @@ public class TestDriver {
         AllBrownPieces(allBrownPieces, pbr1, pbr2, pbr3, pbr4, pbr5, pbr6, pbr7, pbr8, pbr9, pbr10, pbr11, pbr12);
         Validator.isValidPointArray(allPoints, allPieces);
 
+        Player.isPlayerTurn(pl1, pl2, turnCounter);
+        Piece.pieceChooser(allPieces,allBlackPieces,allBrownPieces,pl1,pl2,move1,move2,move3,move4);
+
         boolean gameOver = false;
-        while (gameOver){
-            Player.isPlayerTurn(pl1, pl2, turnCounter);
+        /*while (gameOver == false){
 
 
 
 
 
 
-        }
 
-        Piece.moveChooser(allPieces,move1,move2,move3,move4);
-        String chooseMove = "";
-        Scanner input = new Scanner(System.in);
-        System.out.println("Please choose a move:");
-            chooseMove = input.nextLine();
-            int moveChosen = Integer.parseInt(chooseMove);
-        switch (moveChosen){
-            case 1:
-                System.out.println(move1.toString());
-                break;
-            case 2:
-                System.out.println(move2.toString());
-                break;
-            case 3:
-                System.out.println(move3.toString());
-                break;
-            case 4:
-                System.out.println(move4.toString());
-                break;
-        }
+        }*/
+
+
 
     }
 
