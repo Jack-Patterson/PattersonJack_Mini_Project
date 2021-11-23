@@ -70,7 +70,7 @@ public class Validator {
     }
 
     public static boolean isNumber(Point move){
-        if (move.getX() >= 3 && move.getX() <= 9 && move.getY() >= 1 && move.getY() <= 9){
+        if ((move.getX() >= 1 && move.getX() <= 8) && (move.getY() >= 1 && move.getY() <= 8)){
             return true;
         }
         else {

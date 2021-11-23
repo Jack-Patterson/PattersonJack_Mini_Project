@@ -1,7 +1,6 @@
 package Draughts;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Piece extends Point {
     private String colour;
@@ -61,7 +60,8 @@ public class Piece extends Point {
                 //System.out.println("Move 1: Move from " + p.getX() + "," + p.getY() + " to " + move1.toString());
             }
             else {
-                //System.out.println("Move 1: Invalid Move");
+                move1.setX(0);
+                move1.setY(0);
             }
 
             // Move2 - Forward Right
@@ -70,45 +70,48 @@ public class Piece extends Point {
                 move2.setY(p.getY() + 1);
                 //System.out.println("Move 2: Move from " + p.getX() + "," + p.getY() + " to " + move2.toString());
             }
-            else if (p.getX() != 8 && p.getY() != 8 && p.getColour().equals("brown")) {
+            else if (p.getX() != 1 && p.getY() != 1 && p.getColour().equals("brown")) {
                 move2.setX(p.getX() - 1);
                 move2.setY(p.getY() - 1);
                 //System.out.println("Move 2: Move from " + p.getX() + "," + p.getY() + " to " + move2.toString());
             }
             else {
-                //System.out.println("Move 2: Invalid Move");
+                move2.setX(0);
+                move2.setY(0);
             }
 
             if (p.isKing() == true) {
-                System.out.println("\nBecause you are a king you also have the following moves:");
+                //System.out.println("\nBecause you are a king you also have the following moves:");
                 // Move3 - Backwards Left
                 if (p.getX() != 1 && p.getY() != 1 && p.getColour().equals("black")) {
                     move3.setX(p.getX() - 1);
                     move3.setY(p.getY() - 1);
-                    System.out.println("Move 3: Move from " + p.getX() + "," + p.getY() + " to " + move3.toString());
+                    //System.out.println("Move 3: Move from " + p.getX() + "," + p.getY() + " to " + move3.toString());
                 }
                 else if (p.getX() != 8 && p.getY() != 8 && p.getColour().equals("brown")) {
                     move3.setX(p.getX() + 1);
                     move3.setY(p.getY() + 1);
-                    System.out.println("Move 3: Move from " + p.getX() + "," + p.getY() + " to " + move3.toString());
+                    //System.out.println("Move 3: Move from " + p.getX() + "," + p.getY() + " to " + move3.toString());
                 }
                 else {
-                    System.out.println("Move 3: Invalid Move");
+                    move3.setX(0);
+                    move4.setY(0);
                 }
 
                 // Move4 - Backwards Right
                 if (p.getX() != 8 && p.getY() != 1 && p.getColour().equals("black")) {
                     move4.setX(p.getX() + 1);
                     move4.setY(p.getY() - 1);
-                    System.out.println("Move 4: Move from " + p.getX() + "," + p.getY() + " to " + move4.toString());
+                    //System.out.println("Move 4: Move from " + p.getX() + "," + p.getY() + " to " + move4.toString());
                 }
                 else if (p.getX() != 1 && p.getY() != 8 && p.getColour().equals("brown")) {
                     move4.setX(p.getX() - 1);
                     move4.setY(p.getY() + 1);
-                    System.out.println("Move 4: Move from " + p.getX() + "," + p.getY() + " to " + move4.toString());
+                    //System.out.println("Move 4: Move from " + p.getX() + "," + p.getY() + " to " + move4.toString());
                 }
                 else {
-                    System.out.println("Move 4: Invalid Move");
+                    move1.setX(5);
+                    move1.setY(5);
                 }
             }
         }
@@ -118,31 +121,17 @@ public class Piece extends Point {
         if (pl1.isTheirTurn() == true){
             for (Piece pbl:allBlackPieces) {
                 Piece.moveChooser(allPieces, pbl, move1, move2, move3, move4);
-                /*String chooseMove;
-                int moveChosen = 0;
-                Scanner input = new Scanner(System.in);
-                System.out.println("Please choose a move:");
-                chooseMove = input.nextLine();
-                if (Validator.chooseMoveValidate(chooseMove) == true) {
-                    moveChosen = Integer.parseInt(chooseMove);
-                }
-                switch (moveChosen) {
-                    case 1:
-                        System.out.println(move1.toString());
-                        break;
-                    case 2:
-                        System.out.println(move2.toString());
-                        break;
-                    case 3:
-                        System.out.println(move3.toString());
-                        break;
-                    case 4:
-                        System.out.println(move4.toString());
-                        break;
-                }*/
+
                 if (Validator.isNumber(move1) == true || Validator.isNumber(move2) == true) {
+                    System.out.println("\n" + pbl.getX() + "," + pbl.getY());
                     System.out.println("Move1: " + move1.toString());
                     System.out.println("Move2: " + move2.toString());
+                    if (pbl.isKing() == true) {
+                        if (Validator.isNumber(move3) == true || Validator.isNumber(move4) == true) {
+                            System.out.println("Move3: " + move3.toString());
+                            System.out.println("Move4: " + move4.toString());
+                        }
+                    }
                     test++;
                     System.out.println(test);
 
@@ -155,14 +144,82 @@ public class Piece extends Point {
                             }
                         }
                         if (Validator.isNumber(move2) == true) {
-                            if (p1.getX() == move2.getX()) {
-                                if (p1.getY() == move2.getY()) {
+                            if (p1.getX() == move2.getX() || move2.getX() > 8) {
+                                if (p1.getY() == move2.getY() || move2.getY() > 8) {
                                     System.out.println("M2 invalid");
+                                }
+                            }
+                        }
+                        if (pbl.isKing() == true){
+                            if (Validator.isNumber(move3) == true || Validator.isNumber(move4) == true) {
+                                if (Validator.isNumber(move3) == true) {
+                                    if (p1.getX() == move3.getX()) {
+                                        if (p1.getY() == move3.getY()) {
+                                            System.out.println("M3 invalid");
+                                        }
+                                    }
+                                }
+                                if (Validator.isNumber(move4) == true) {
+                                    if (p1.getX() == move4.getX()) {
+                                        if (p1.getY() == move4.getY()) {
+                                            System.out.println("M4 invalid");
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
+
+            }
+        }
+        else if (pl2.isTheirTurn() == true){
+            for (Piece pbr:allBrownPieces) {
+                Piece.moveChooser(allPieces, pbr, move1, move2, move3, move4);
+
+                if (Validator.isNumber(move1) == true || Validator.isNumber(move2) == true || Validator.isNumber(move3) == true || Validator.isNumber(move4) == true) {
+                    System.out.println("\n" + pbr.getX() + "," + pbr.getY());
+                    System.out.println("Move1: " + move1.toString());
+                    System.out.println("Move2: " + move2.toString());
+                    if (pbr.isKing() == true) {
+                        System.out.println("Move3: " + move3.toString());
+                        System.out.println("Move4: " + move4.toString());
+                    }
+                    test++;
+                    System.out.println(test);
+
+                    for (Piece p1:allPieces) {
+                        if (p1.getX() == move1.getX()) {
+                            if (p1.getY() == move1.getY()) {
+                                System.out.println("M1 invalid");
+                            }
+                        }
+                        if (p1.getX() == move2.getX()) {
+                            if (p1.getY() == move2.getY() || move2.getY() < 1 || move2.getX() > 8) {
+                                System.out.println("M2 invalid");
+                            }
+                        }
+                        if (pbr.isKing() == true){
+                            if (Validator.isNumber(move3) == true || Validator.isNumber(move4) == true) {
+                                if (Validator.isNumber(move3) == true) {
+                                    if (p1.getX() == move3.getX()) {
+                                        if (p1.getY() == move3.getY()) {
+                                            System.out.println("M3 invalid");
+                                        }
+                                    }
+                                }
+                                if (Validator.isNumber(move4) == true) {
+                                    if (p1.getX() == move4.getX()) {
+                                        if (p1.getY() == move4.getY()) {
+                                            System.out.println("M4 invalid");
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
             }
         }
     }
