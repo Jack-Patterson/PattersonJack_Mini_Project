@@ -96,6 +96,8 @@ public class TestDriver {
         Point test = new Point(xx,yy);
         System.out.println(test.toString());
 
+        Piece test2 = new Piece(xx, yy, null, false,false,true);
+
 
         //Validator.pieceVerifier(allPieces,allBlackPieces,allBrownPieces,pl1,pl2,move1,move2,move3,move4, test);
         //Piece.pieceMoveChooser(pl1,pl2,move1,move2,move3,move4,test,allPieces,allBlackPieces,allBrownPieces, test);
