@@ -54,7 +54,7 @@ public class Validator {
         }
     }
 
-    public static boolean chooseMoveValidate(String chooseMove){
+    public static boolean moveValidate(String chooseMove){
         int counter = 0;
         for (int i = 0; i < chooseMove.length(); i++){
             if (chooseMove.charAt(i) >= 0 && chooseMove.charAt(i) <= 9){
@@ -75,6 +75,147 @@ public class Validator {
         }
         else {
             return false;
+        }
+    }
+
+    public static void pieceVerifier (ArrayList<Piece> allPieces, ArrayList<Piece> allBlackPieces, ArrayList<Piece> allBrownPieces, Player pl1, Player pl2, Point move1, Point move2, Point move3, Point move4, Point p) {
+        int testt = 0;
+        boolean m1Valid = false, m2Valid = false, m3Valid = false, m4Valid = false;
+        if (pl1.isTheirTurn() == true) {
+            for (Piece pbl : allBlackPieces) {
+
+                Piece.moveChooser(pbl, move1, move2, move3, move4);
+
+                if (Validator.isNumber(move1) == true || Validator.isNumber(move2) == true) {
+                    System.out.println("\n" + pbl.getX() + "," + pbl.getY());
+                    System.out.println("Move1: " + move1.toString());
+                    System.out.println("Move2: " + move2.toString());
+                    if (pbl.isKing() == true) {
+                        if (Validator.isNumber(move3) == true || Validator.isNumber(move4) == true) {
+                            System.out.println("Move3: " + move3.toString());
+                            System.out.println("Move4: " + move4.toString());
+                        }
+                    }
+                    testt++;
+                    System.out.println(testt);
+
+                    for (Piece p1 : allPieces) {
+                        if (Validator.isNumber(move1) == true) {
+                            if (p1.getX() == move1.getX() && p1.getY() == move1.getY()) {
+                                System.out.println("M1 invalid");
+                            }
+                            /*else {
+                                m1Valid = true;
+                            }*/
+                        }
+
+                        if (Validator.isNumber(move2) == true) {
+                            if (p1.getX() == move2.getX() && p1.getY() == move2.getY()) {
+                                System.out.println("M2 invalid");
+                            }
+                            else {
+                                m2Valid = true;
+                            }
+                        }
+
+                        if (pbl.isKing() == true) {
+                            if (Validator.isNumber(move3) == true || Validator.isNumber(move4) == true) {
+                                if (Validator.isNumber(move3) == true) {
+                                    if (p1.getX() == move3.getX()) {
+                                        if (p1.getY() == move3.getY()) {
+                                            System.out.println("M3 invalid");
+                                            m3Valid = false;
+                                        }
+                                    }
+                                    else {
+                                        //m3Valid = true;
+                                    }
+                                }
+
+                                if (Validator.isNumber(move4) == true) {
+                                    if (p1.getX() == move4.getX()) {
+                                        if (p1.getY() == move4.getY()) {
+                                            System.out.println("M4 invalid");
+                                            m4Valid = false;
+                                        }
+                                    }
+                                    else {
+                                        //m4Valid = true;
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                }
+                if (pbl.getX() == p.getX() && pbl.getY() == p.getY()){
+                    System.out.println("\nfinished.");
+                    if (m1Valid == true || m2Valid == true || m3Valid == true || m4Valid == true){
+                        pbl.setHasValidMove(true);
+                        System.out.println("true");
+                    }
+                    break;
+                }
+            }
+        } else if (pl2.isTheirTurn() == true) {
+            for (Piece pbr : allBrownPieces) {
+
+                Piece.moveChooser(pbr, move1, move2, move3, move4);
+
+                if (Validator.isNumber(move1) == true || Validator.isNumber(move2) == true || Validator.isNumber(move3) == true || Validator.isNumber(move4) == true) {
+                    System.out.println("\n" + pbr.getX() + "," + pbr.getY());
+                    System.out.println("Move1: " + move1.toString());
+                    System.out.println("Move2: " + move2.toString());
+                    if (pbr.isKing() == true) {
+                        System.out.println("Move3: " + move3.toString());
+                        System.out.println("Move4: " + move4.toString());
+                    }
+                    testt++;
+                    System.out.println(testt);
+
+                    for (Piece p1 : allPieces) {
+                        if (p1.getX() == move1.getX()) {
+                            if (p1.getY() == move1.getY()) {
+                                System.out.println("M1 invalid");
+                                m1Valid = false;
+                            }
+                        }
+                        if (p1.getX() == move2.getX()) {
+                            if (p1.getY() == move2.getY() || move2.getY() < 1 || move2.getX() > 8) {
+                                System.out.println("M2 invalid");
+                                m2Valid = false;
+                            }
+                        }
+                        if (pbr.isKing() == true) {
+                            if (Validator.isNumber(move3) == true || Validator.isNumber(move4) == true) {
+                                if (Validator.isNumber(move3) == true) {
+                                    if (p1.getX() == move3.getX()) {
+                                        if (p1.getY() == move3.getY()) {
+                                            System.out.println("M3 invalid");
+                                            m3Valid = false;
+                                        }
+                                    }
+                                }
+                                if (Validator.isNumber(move4) == true) {
+                                    if (p1.getX() == move4.getX()) {
+                                        if (p1.getY() == move4.getY()) {
+                                            System.out.println("M4 invalid");
+                                            m4Valid = false;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (pbr.getX() == p.getX() && pbr.getY() == p.getY()){
+                    System.out.println("\nfinished.");
+                    if (m1Valid == true || m2Valid == true){
+                        pbr.setHasValidMove(true);
+                    }
+                    break;
+                }
+            }
         }
     }
 

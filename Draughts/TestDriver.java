@@ -1,37 +1,39 @@
 package Draughts;
 
 import java.util.ArrayList;
+import java.util.Scanner;
+
 public class TestDriver {
     public static void main(String[] args) {
         int turnCounter = 0;
 
-        Player pl1 = new Player("Test Name 1", "black", false);
-        Player pl2 = new Player("Test Name 2", "brown", true);
+        Player pl1 = new Player("Test Name 1", "black", true);
+        Player pl2 = new Player("Test Name 2", "brown", false);
 
-        Piece pbl1 = new Piece(1, 1, "black", false, false);
-        Piece pbl2 = new Piece(1, 3, "black", false, false);
-        Piece pbl3 = new Piece(2, 2, "black", false, false);
-        Piece pbl4 = new Piece(3, 1, "black", false, false);
-        Piece pbl5 = new Piece(3, 3, "black", false, false);
-        Piece pbl6 = new Piece(4, 2, "black", false, false);
-        Piece pbl7 = new Piece(5, 1, "black", true, false);
-        Piece pbl8 = new Piece(5, 3, "black", false, false);
-        Piece pbl9 = new Piece(6, 2, "black", false, false);
-        Piece pbl10 = new Piece(7, 1, "black", false, false);
-        Piece pbl11 = new Piece(7, 3, "black", false, false);
-        Piece pbl12 = new Piece(8, 2, "black", false, false);
-        Piece pbr1 = new Piece(1, 7, "brown", false, false);
-        Piece pbr2 = new Piece(2, 8, "brown", false, false);
-        Piece pbr3 = new Piece(2, 6, "brown", false, false);
-        Piece pbr4 = new Piece(3, 7, "brown", false, false);
-        Piece pbr5 = new Piece(4, 8, "brown", false, false);
-        Piece pbr6 = new Piece(4, 6, "brown", false, false);
-        Piece pbr7 = new Piece(5, 7, "brown", false, false);
-        Piece pbr8 = new Piece(6, 6, "brown", false, false);
-        Piece pbr9 = new Piece(6, 8, "brown", false, false);
-        Piece pbr10 = new Piece(7, 7, "brown", false, false);
-        Piece pbr11 = new Piece(8, 6, "brown", false, false);
-        Piece pbr12 = new Piece(8, 8, "brown", false, false);
+        Piece pbl1 = new Piece(1, 1, "black", false, false, true);
+        Piece pbl2 = new Piece(1, 3, "black", false, false, true);
+        Piece pbl3 = new Piece(2, 2, "black", false, false, true);
+        Piece pbl4 = new Piece(3, 1, "black", false, false, true);
+        Piece pbl5 = new Piece(3, 3, "black", false, false, true);
+        Piece pbl6 = new Piece(4, 2, "black", false, false, true);
+        Piece pbl7 = new Piece(5, 1, "black", true, false, true);
+        Piece pbl8 = new Piece(5, 3, "black", false, false, true);
+        Piece pbl9 = new Piece(6, 2, "black", false, false, true);
+        Piece pbl10 = new Piece(7, 1, "black", false, false, true);
+        Piece pbl11 = new Piece(7, 3, "black", false, false, true);
+        Piece pbl12 = new Piece(8, 2, "black", false, false, true);
+        Piece pbr1 = new Piece(1, 7, "brown", false, false, true);
+        Piece pbr2 = new Piece(2, 8, "brown", false, false, true);
+        Piece pbr3 = new Piece(2, 6, "brown", false, false, true);
+        Piece pbr4 = new Piece(3, 7, "brown", false, false, true);
+        Piece pbr5 = new Piece(4, 8, "brown", false, false, true);
+        Piece pbr6 = new Piece(4, 6, "brown", false, false, true);
+        Piece pbr7 = new Piece(5, 7, "brown", false, false, true);
+        Piece pbr8 = new Piece(6, 6, "brown", false, false, true);
+        Piece pbr9 = new Piece(6, 8, "brown", false, false, true);
+        Piece pbr10 = new Piece(7, 7, "brown", false, false, true);
+        Piece pbr11 = new Piece(8, 6, "brown", false, false, true);
+        Piece pbr12 = new Piece(8, 8, "brown", false, false, true);
 
         ArrayList<Piece> allPieces = new ArrayList<Piece>();
         ArrayList<Piece> allBlackPieces = new ArrayList<Piece>();
@@ -83,8 +85,20 @@ public class TestDriver {
         Validator.isValidPointArray(allPoints, allPieces);
 
         //Player.isPlayerTurn(pl1, pl2, turnCounter);
-        Piece.pieceChooser(allPieces,allBlackPieces,allBrownPieces,pl1,pl2,move1,move2,move3,move4);
+        Scanner input = new Scanner(System.in);
+        int xx = 0, yy = 0;
+        System.out.println("Please choose x of a piece:");
+        xx = input.nextInt();
+        System.out.println("Please choose y of a piece:");
+        yy = input.nextInt();
+        System.out.println(xx + "," + yy);
 
+        Point test = new Point(xx,yy);
+        System.out.println(test.toString());
+
+
+        //Validator.pieceVerifier(allPieces,allBlackPieces,allBrownPieces,pl1,pl2,move1,move2,move3,move4, test);
+        //Piece.pieceMoveChooser(pl1,pl2,move1,move2,move3,move4,test,allPieces,allBlackPieces,allBrownPieces, test);
         boolean gameOver = false;
         /*while (gameOver == false){
 
