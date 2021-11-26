@@ -219,5 +219,21 @@ public class Validator {
         }
     }
 
+    public static boolean isValidName(String name){
+        boolean valid = false;
+        for (int i = 0; i < name.length(); i++){
+            name = name.toUpperCase();
+            if ((name.charAt(i) >= 'A' && name.charAt(i) <= 'Z') || (name.charAt(i) >= 0 && name.charAt(i) <= 9)){
+                valid = true;
+            }
+        }
+        if (valid == true){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
 
 }

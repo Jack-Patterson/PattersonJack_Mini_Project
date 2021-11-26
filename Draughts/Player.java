@@ -1,8 +1,9 @@
 package Draughts;
 
 import javax.swing.*;
+import java.io.Serializable;
 
-public class Player {
+public class Player implements Serializable {
     private String playerName;
     private String playerColour;
     private boolean isTheirTurn;

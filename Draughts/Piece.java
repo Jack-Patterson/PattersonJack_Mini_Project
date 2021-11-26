@@ -1,9 +1,10 @@
 package Draughts;
 
 import javax.swing.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Piece extends Point {
+public class Piece extends Point implements Serializable {
     private String colour;
     private boolean isKing;
     private boolean isCaptured, hasValidMove;
@@ -134,6 +135,114 @@ public class Piece extends Point {
         if (p.hasValidMove == true){
             System.out.println("test valid move");
         }
+    }
+
+    public static ArrayList<Piece> getAllPieces (ArrayList<Piece> allPieces){
+        Piece pbl1 = new Piece(1, 1, "black", false, false, true);
+        Piece pbl2 = new Piece(1, 3, "black", false, false, true);
+        Piece pbl3 = new Piece(2, 2, "black", false, false, true);
+        Piece pbl4 = new Piece(3, 1, "black", false, false, true);
+        Piece pbl5 = new Piece(3, 3, "black", false, false, true);
+        Piece pbl6 = new Piece(4, 2, "black", false, false, true);
+        Piece pbl7 = new Piece(5, 1, "black", true, false, true);
+        Piece pbl8 = new Piece(5, 3, "black", false, false, true);
+        Piece pbl9 = new Piece(6, 2, "black", false, false, true);
+        Piece pbl10 = new Piece(7, 1, "black", false, false, true);
+        Piece pbl11 = new Piece(7, 3, "black", false, false, true);
+        Piece pbl12 = new Piece(8, 2, "black", false, false, true);
+        Piece pbr1 = new Piece(1, 7, "brown", false, false, true);
+        Piece pbr2 = new Piece(2, 8, "brown", false, false, true);
+        Piece pbr3 = new Piece(2, 6, "brown", false, false, true);
+        Piece pbr4 = new Piece(3, 7, "brown", false, false, true);
+        Piece pbr5 = new Piece(4, 8, "brown", false, false, true);
+        Piece pbr6 = new Piece(4, 6, "brown", false, false, true);
+        Piece pbr7 = new Piece(5, 7, "brown", false, false, true);
+        Piece pbr8 = new Piece(6, 6, "brown", false, false, true);
+        Piece pbr9 = new Piece(6, 8, "brown", false, false, true);
+        Piece pbr10 = new Piece(7, 7, "brown", false, false, true);
+        Piece pbr11 = new Piece(8, 6, "brown", false, false, true);
+        Piece pbr12 = new Piece(8, 8, "brown", false, false, true);
+        allPieces.add(pbl1);
+        allPieces.add(pbl2);
+        allPieces.add(pbl3);
+        allPieces.add(pbl4);
+        allPieces.add(pbl5);
+        allPieces.add(pbl6);
+        allPieces.add(pbl7);
+        allPieces.add(pbl8);
+        allPieces.add(pbl9);
+        allPieces.add(pbl10);
+        allPieces.add(pbl11);
+        allPieces.add(pbl12);
+        allPieces.add(pbr1);
+        allPieces.add(pbr2);
+        allPieces.add(pbr3);
+        allPieces.add(pbr4);
+        allPieces.add(pbr5);
+        allPieces.add(pbr6);
+        allPieces.add(pbr7);
+        allPieces.add(pbr8);
+        allPieces.add(pbr9);
+        allPieces.add(pbr10);
+        allPieces.add(pbr11);
+        allPieces.add(pbr12);
+        return allPieces;
+    }
+
+    public static ArrayList<Piece> getAllBlackPieces (ArrayList<Piece> allBlackPieces){
+        Piece pbl1 = new Piece(1, 1, "black", false, false, true);
+        Piece pbl2 = new Piece(1, 3, "black", false, false, true);
+        Piece pbl3 = new Piece(2, 2, "black", false, false, true);
+        Piece pbl4 = new Piece(3, 1, "black", false, false, true);
+        Piece pbl5 = new Piece(3, 3, "black", false, false, true);
+        Piece pbl6 = new Piece(4, 2, "black", false, false, true);
+        Piece pbl7 = new Piece(5, 1, "black", true, false, true);
+        Piece pbl8 = new Piece(5, 3, "black", false, false, true);
+        Piece pbl9 = new Piece(6, 2, "black", false, false, true);
+        Piece pbl10 = new Piece(7, 1, "black", false, false, true);
+        Piece pbl11 = new Piece(7, 3, "black", false, false, true);
+        Piece pbl12 = new Piece(8, 2, "black", false, false, true);
+        allBlackPieces.add(pbl1);
+        allBlackPieces.add(pbl2);
+        allBlackPieces.add(pbl3);
+        allBlackPieces.add(pbl4);
+        allBlackPieces.add(pbl5);
+        allBlackPieces.add(pbl6);
+        allBlackPieces.add(pbl7);
+        allBlackPieces.add(pbl8);
+        allBlackPieces.add(pbl9);
+        allBlackPieces.add(pbl10);
+        allBlackPieces.add(pbl11);
+        allBlackPieces.add(pbl12);
+        return allBlackPieces;
+    }
+
+    public static ArrayList<Piece> getAllBrownPieces (ArrayList<Piece> allBrownPieces){
+        Piece pbr1 = new Piece(1, 7, "brown", false, false, true);
+        Piece pbr2 = new Piece(2, 8, "brown", false, false, true);
+        Piece pbr3 = new Piece(2, 6, "brown", false, false, true);
+        Piece pbr4 = new Piece(3, 7, "brown", false, false, true);
+        Piece pbr5 = new Piece(4, 8, "brown", false, false, true);
+        Piece pbr6 = new Piece(4, 6, "brown", false, false, true);
+        Piece pbr7 = new Piece(5, 7, "brown", false, false, true);
+        Piece pbr8 = new Piece(6, 6, "brown", false, false, true);
+        Piece pbr9 = new Piece(6, 8, "brown", false, false, true);
+        Piece pbr10 = new Piece(7, 7, "brown", false, false, true);
+        Piece pbr11 = new Piece(8, 6, "brown", false, false, true);
+        Piece pbr12 = new Piece(8, 8, "brown", false, false, true);
+        allBrownPieces.add(pbr1);
+        allBrownPieces.add(pbr2);
+        allBrownPieces.add(pbr3);
+        allBrownPieces.add(pbr4);
+        allBrownPieces.add(pbr5);
+        allBrownPieces.add(pbr6);
+        allBrownPieces.add(pbr7);
+        allBrownPieces.add(pbr8);
+        allBrownPieces.add(pbr9);
+        allBrownPieces.add(pbr10);
+        allBrownPieces.add(pbr11);
+        allBrownPieces.add(pbr12);
+        return allBrownPieces;
     }
 
 }

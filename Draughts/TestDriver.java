@@ -98,6 +98,8 @@ public class TestDriver {
 
         Piece test2 = new Piece(xx, yy, null, false,false,true);
 
+        GUI gui = new GUI();
+
 
         //Validator.pieceVerifier(allPieces,allBlackPieces,allBrownPieces,pl1,pl2,move1,move2,move3,move4, test);
         //Piece.pieceMoveChooser(pl1,pl2,move1,move2,move3,move4,test,allPieces,allBlackPieces,allBrownPieces, test);
