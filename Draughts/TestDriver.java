@@ -82,7 +82,6 @@ public class TestDriver {
         AllPieces(allPieces, pbl1, pbl2, pbl3, pbl4, pbl5, pbl6, pbl7, pbl8, pbl9, pbl10, pbl11, pbl12, pbr1, pbr2, pbr3, pbr4, pbr5, pbr6, pbr7, pbr8, pbr9, pbr10, pbr11, pbr12);
         AllBlackPieces(allBlackPieces, pbl1, pbl2, pbl3, pbl4, pbl5, pbl6, pbl7, pbl8, pbl9, pbl10, pbl11, pbl12);
         AllBrownPieces(allBrownPieces, pbr1, pbr2, pbr3, pbr4, pbr5, pbr6, pbr7, pbr8, pbr9, pbr10, pbr11, pbr12);
-        Validator.isValidPointArray(allPoints, allPieces);
 
         //Player.isPlayerTurn(pl1, pl2, turnCounter);
         Scanner input = new Scanner(System.in);

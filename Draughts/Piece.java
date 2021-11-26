@@ -60,6 +60,7 @@ public class Piece extends Point implements Serializable {
         this.hasValidMove = hasValidMove;
     }
 
+    // Gets the valid moves that an be done by a piece in each direction.
     public static void moveChooser(Piece p, Point move1, Point move2, Point move3, Point move4){
             //System.out.println("Choose your move!");
             // Move1 - Forward Left
@@ -130,6 +131,7 @@ public class Piece extends Point implements Serializable {
             }
     }
 
+    // Allows a piece to choose a move.
     public static void pieceMoveChooser (Player pl1, Player pl2, Point move1, Point move2, Point move3, Point move4, Piece p, ArrayList<Piece> allPieces, ArrayList<Piece> allBlackPieces, ArrayList<Piece> allBrownPieces, Point po){
         Validator.pieceVerifier(allPieces,allBlackPieces,allBrownPieces,pl1, pl2,move1,move2,move3,move4,po);
         if (p.hasValidMove == true){

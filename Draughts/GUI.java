@@ -171,6 +171,8 @@ public class GUI extends JFrame implements ActionListener {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
             String name = "";
+            int isBlack;
+            String colour = "";
 
             name = JOptionPane.showInputDialog("Please enter the name of player 1.");
             Validator.isValidName(name);
@@ -179,7 +181,25 @@ public class GUI extends JFrame implements ActionListener {
                     name = JOptionPane.showInputDialog("Please enter the name of player 1.");
                 }
             }
-            Player pl1 = new Player(name,"black", false);
+            isBlack = JOptionPane.showConfirmDialog(null,"Would player 1 like to be the colour black?\n(If YES Player 2 will be brown.)");
+            if (isBlack == JOptionPane.YES_OPTION){
+                colour = "black";
+            }
+            else if (isBlack == JOptionPane.NO_OPTION) {
+                colour = "brown";
+            }
+            else {
+                while (isBlack != JOptionPane.YES_OPTION || isBlack != JOptionPane.NO_OPTION){
+                    isBlack = JOptionPane.showConfirmDialog(null,"Would player 1 like to be the colour black?\n(If YES Player 2 will be brown.)");
+                    if (isBlack == JOptionPane.YES_OPTION){
+                        colour = "black";
+                    }
+                    else if (isBlack == JOptionPane.NO_OPTION) {
+                        colour = "brown";
+                    }
+                }
+            }
+            Player pl1 = new Player(name,colour, false);
             name = JOptionPane.showInputDialog("Please enter the name of player 2.");
             Validator.isValidName(name);
             if (Validator.isValidName(name) == false){
@@ -187,7 +207,13 @@ public class GUI extends JFrame implements ActionListener {
                     name = JOptionPane.showInputDialog("Please enter the name of player 2.");
                 }
             }
-            Player pl2 = new Player(name,"black", false);
+            if (isBlack == JOptionPane.YES_OPTION){
+                colour = "brown";
+            }
+            else if (isBlack == JOptionPane.NO_OPTION) {
+                colour = "black";
+            }
+            Player pl2 = new Player(name,colour, false);
             ArrayList<Player> allPlayers = new ArrayList<>();
             allPlayers.add(pl1);
             allPlayers.add(pl2);

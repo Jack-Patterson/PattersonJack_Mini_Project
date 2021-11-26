@@ -4,25 +4,7 @@ import java.util.ArrayList;
 
 public class Validator {
 
-    // Method checks if the point is a valid black square on the board.
-    public static void isValidPointArray (ArrayList<Point> allPoints, ArrayList<Piece> allPieces){
-        boolean validPoint = false;
-        for (Point po:allPoints){
-            for (Piece p: allPieces) {
-                if (po.getX() == p.getX() && po.getY() == p.getY()) {
-                    validPoint = true;
-                    break;
-                }
-            }
-        }
-        if (validPoint == true){
-            System.out.println("Valid");
-        }
-        else {
-            System.out.println("Invalid");
-        }
-    }
-
+    // Method checks if the point is on a black square.
     public static void isValidPoint (ArrayList<Point> allPoints, Point move){
         boolean validPoint = false;
         for (Point po:allPoints){
@@ -69,6 +51,7 @@ public class Validator {
         }
     }
 
+    // Checks if a point is within the valid number range.
     public static boolean isNumber(Point move){
         if ((move.getX() >= 1 && move.getX() <= 8) && (move.getY() >= 1 && move.getY() <= 8)){
             return true;
@@ -78,6 +61,7 @@ public class Validator {
         }
     }
 
+    // Checks if a square is free to jump onto.
     public static void pieceVerifier (ArrayList<Piece> allPieces, ArrayList<Piece> allBlackPieces, ArrayList<Piece> allBrownPieces, Player pl1, Player pl2, Point move1, Point move2, Point move3, Point move4, Point p) {
         int testt = 0;
         boolean m1Valid = false, m2Valid = false, m3Valid = false, m4Valid = false;
