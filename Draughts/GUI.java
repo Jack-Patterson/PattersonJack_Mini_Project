@@ -1,8 +1,10 @@
 package Draughts;
 
 import java.awt.*;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -13,8 +15,10 @@ public class GUI extends JFrame implements ActionListener {
     private final File file = new File("Draughts/PlayerFiles/GUI.data");
     private JFrame frame = new JFrame();
     public static Piece selectedPiece=null;
+    ArrayList<Piece> allPieces = new ArrayList<Piece>();
 
     public GUI(){
+        Piece.getAllPieces(allPieces);
         createFileMenu();
 
         // Menu Bar
@@ -23,7 +27,7 @@ public class GUI extends JFrame implements ActionListener {
         frame.setJMenuBar(menuBar);
 
         // Icon
-        ImageIcon icon = new ImageIcon("Draughts/Draughts.jpg");
+        ImageIcon icon = new ImageIcon("Draughts/Images/Draughts.jpg");
         frame.setIconImage(icon.getImage());
 
         // Set Frame Basics
@@ -44,37 +48,60 @@ public class GUI extends JFrame implements ActionListener {
         Modifications by Student:
         -
         */
+
         JPanel pn=new JPanel(){
             public void paint(Graphics g) {
                 boolean white=true;
-                ArrayList<Piece> allPieces = null;
+
+
+                // Creating Board
                 for(int y= 0;y<8;y++){
                     for(int x= 0;x<8;x++){
                         if(white){
                             g.setColor(new Color(235,235, 208));
-                        }else{
+                        }
+                        else{
                             g.setColor(new Color(165,42,42));
-
                         }
                         g.fillRect(x*64, y*64, 64, 64);
                         white=!white;
                     }
                     white=!white;
                 }
-                /*for(Piece p: Piece.getAllPieces(allPieces)){
-                    int ind=0;
+
+                // Creating Pieces
+                Image imgs[]=new Image[12];
+
+                int ind = 0;
+                try {
+                    BufferedImage image = ImageIO.read(new File("Draughts/Images/Piece_Black.png"));
+                    resizeImage(image,65, 65);
+                    imgs[0] = image;
+
+                    BufferedImage image2 = ImageIO.read(new File("Draughts/Images/Piece_Brown.png"));
+                    resizeImage(image2,65, 65);
+                    imgs[1] = image2;
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+
+
+                Piece.getAllPieces(allPieces);
+                for(Piece p: allPieces){
                     if(p.getColour().equalsIgnoreCase("black")){
                         ind=0;
                     }
                     if(p.getColour().equalsIgnoreCase("brown")){
                         ind=1;
                     }
-                    g.drawImage(imgs[ind], p.x, p.y, this);
-                }*/
+                    g.drawImage(imgs[ind], p.getX(), p.getY(), this);
+                }
             }
         };
         frame.addMouseMotionListener(new MouseMotionListener() {
-            @Override
             public void mouseDragged(MouseEvent e) {
                 if(selectedPiece!=null){
                     selectedPiece.x=e.getX()-32;
@@ -83,7 +110,6 @@ public class GUI extends JFrame implements ActionListener {
                 }
             }
 
-            @Override
             public void mouseMoved(MouseEvent e) {
             }
         });
@@ -103,7 +129,6 @@ public class GUI extends JFrame implements ActionListener {
             public void mouseEntered(MouseEvent e) {
             }
 
-            @Override
             public void mouseExited(MouseEvent e) {
             }
         });
@@ -324,6 +349,19 @@ public class GUI extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null, "File could not be written!",
                     "Problem Writing to File!", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public static void resizeImage(String inputImagePath, int scaledWidth, int scaledHeight) throws IOException {
+        File inputFile = new File(inputImagePath);
+        BufferedImage inputImage = ImageIO.read(inputFile);
+
+        BufferedImage outputImage = new BufferedImage(scaledWidth,
+                scaledHeight, inputImage.getType());
+
+        Graphics2D g2d = outputImage.createGraphics();
+        g2d.drawImage(inputImage, 0, 0, scaledWidth, scaledHeight, null);
+        g2d.dispose();
+
     }
 
 }
