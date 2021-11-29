@@ -12,25 +12,38 @@ public class GUI extends JFrame implements ActionListener {
     private JMenuItem item=null;
     private final File file = new File("Draughts/PlayerFiles/GUI.data");
     private JFrame frame = new JFrame();
+    public static Piece selectedPiece=null;
 
     public GUI(){
-        super("Draughts Game - Jack Patterson Mini Project");
-
         createFileMenu();
 
+        // Menu Bar
         JMenuBar menuBar = new JMenuBar();
-        //setJMenuBar(menuBar);
         menuBar.add(fileMenu);
-
-        ImageIcon icon = new ImageIcon("Draughts/Draughts.jpg");
-        setIconImage(icon.getImage());
-
         frame.setJMenuBar(menuBar);
+
+        // Icon
+        ImageIcon icon = new ImageIcon("Draughts/Draughts.jpg");
+        frame.setIconImage(icon.getImage());
+
+        // Set Frame Basics
         frame.setBounds(10, 10, 525, 570);
-        frame.setTitle("Checkers");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Draughts Game - Jack Patterson Mini Project");
         frame.setVisible(true);
 
+        /* Making Draughts Board
+        Title of Program: Chess Board
+        Author: Screen Works/Khouiled
+        Date Written: 6/3/21
+        Source Version: V2 (Unknown exactly as V2 was uploaded on Google Drive, only V1 is on Github)
+        Licence: The Unlicense (Given to public domain)
+        Availability: https://www.youtube.com/watch?v=LivX1XKpSQA
+                      V1: https://github.com/Khald64/ChessGame/
+                      V2: https://drive.google.com/file/d/1W7QNxTbXuhz5D-MgQpRIiwK90R7by9B4/view
+        Date Accessed: 29/11/21
+        Modifications by Student:
+        -
+        */
         JPanel pn=new JPanel(){
             public void paint(Graphics g) {
                 boolean white=true;
@@ -59,22 +72,53 @@ public class GUI extends JFrame implements ActionListener {
                     g.drawImage(imgs[ind], p.x, p.y, this);
                 }*/
             }
-
         };
-        frame.add(pn);
-        frame.repaint();
+        frame.addMouseMotionListener(new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if(selectedPiece!=null){
+                    selectedPiece.x=e.getX()-32;
+                    selectedPiece.y=e.getY()-32;
+                    frame.repaint();
+                }
+            }
 
-        //setSize(800,800 );
-        //setVisible(true);
+            @Override
+            public void mouseMoved(MouseEvent e) {
+            }
+        });
+        frame.addMouseListener(new MouseListener() {
+            public void mouseClicked(MouseEvent e) {
+            }
+
+            public void mousePressed(MouseEvent e) {
+                //selectedPiece=getPiece(e.getX(), e.getY());
+            }
+
+            public void mouseReleased(MouseEvent e) {
+                //selectedPiece.move(e.getX()/64, e.getY()/64);
+                frame.repaint();
+            }
+
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
+        // End
+
+        frame.add(pn);
     }
 
     public static void main( String[] args ) {
-        GUI frame2 = new GUI();
+        GUI gui = new GUI();
     }
 
     private void createFileMenu(){
 
-        fileMenu = new JMenu("File");
+        fileMenu = new JMenu("Game");
 
         String itemNames[] = {"New Game","Open Game","Save Game","Quit Game"};
 
