@@ -12,7 +12,6 @@ public class GUI extends JFrame implements ActionListener {
     private JMenuItem item=null;
     private final File file = new File("Draughts/PlayerFiles/GUI.data");
     private JFrame frame = new JFrame();
-    private JPanel backBoard = new JPanel();
 
     public GUI(){
         super("Draughts Game - Jack Patterson Mini Project");
@@ -20,86 +19,57 @@ public class GUI extends JFrame implements ActionListener {
         createFileMenu();
 
         JMenuBar menuBar = new JMenuBar();
-        setJMenuBar(menuBar);
+        //setJMenuBar(menuBar);
         menuBar.add(fileMenu);
 
         ImageIcon icon = new ImageIcon("Draughts/Draughts.jpg");
         setIconImage(icon.getImage());
 
-        frame.setSize(905,905);
-        backBoard.setSize(900,900);
+        frame.setJMenuBar(menuBar);
+        frame.setBounds(10, 10, 525, 570);
         frame.setTitle("Checkers");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        backBoard.setVisible(true);
 
-        boardSquare bs;
-        String type = null;
-        //Filling in Brown Side
-        for (int i = 0; i <=1; i++)
-        {
-            for(int j = 0; j < 9; j++)
-            {
-                if(j % 2 == 0)
-                {
-                    type = "Brown";
+        JPanel pn=new JPanel(){
+            public void paint(Graphics g) {
+                boolean white=true;
+                ArrayList<Piece> allPieces = null;
+                for(int y= 0;y<8;y++){
+                    for(int x= 0;x<8;x++){
+                        if(white){
+                            g.setColor(new Color(235,235, 208));
+                        }else{
+                            g.setColor(new Color(165,42,42));
+
+                        }
+                        g.fillRect(x*64, y*64, 64, 64);
+                        white=!white;
+                    }
+                    white=!white;
                 }
-                else
-                {
-                    type = "Blank";
-                }
-
-                bs = new boardSquare(100*j,100*i,type);
-                backBoard.add(bs);
-
+                /*for(Piece p: Piece.getAllPieces(allPieces)){
+                    int ind=0;
+                    if(p.getColour().equalsIgnoreCase("black")){
+                        ind=0;
+                    }
+                    if(p.getColour().equalsIgnoreCase("brown")){
+                        ind=1;
+                    }
+                    g.drawImage(imgs[ind], p.x, p.y, this);
+                }*/
             }
 
-        }
-        //Filling in empty middle
-        type = "Blank";
-        for (int i = 2; i < 7; i++)
-        {
-            for(int j = 0; j < 9; j++)
-            {
-
-                bs = new boardSquare(100*j,100*i,type);
-                backBoard.add(bs);
-
-            }
-
-        }
-
-        //Filling in Black side
-        for (int i = 7; i < 9; i++)
-        {
-            for(int j = 0; j < 9; j++)
-            {
-                if(j % 2 != 0)
-                {
-                    type = "Black";
-                }
-                else
-                {
-                    type = "Blank";
-                }
-
-                bs = new boardSquare(100*j,100*i,type);
-                backBoard.add(bs);
-
-            }
-
-        }
-
-        backBoard.repaint();
-        frame.add(backBoard);
+        };
+        frame.add(pn);
         frame.repaint();
 
         //setSize(800,800 );
-        setVisible(true);
+        //setVisible(true);
     }
 
     public static void main( String[] args ) {
-        GUI frame = new GUI();
+        GUI frame2 = new GUI();
     }
 
     private void createFileMenu(){
