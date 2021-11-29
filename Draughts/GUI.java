@@ -75,11 +75,11 @@ public class GUI extends JFrame implements ActionListener {
                 int ind = 0;
                 try {
                     BufferedImage image = ImageIO.read(new File("Draughts/Images/Piece_Black.png"));
-                    resizeImage(image,65, 65);
+                    //resizeImage(image,65, 65);
                     imgs[0] = image;
 
                     BufferedImage image2 = ImageIO.read(new File("Draughts/Images/Piece_Brown.png"));
-                    resizeImage(image2,65, 65);
+                    //resizeImage(image2,65, 65);
                     imgs[1] = image2;
                 }
                 catch (IOException e) {
