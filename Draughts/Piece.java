@@ -1,6 +1,7 @@
 package Draughts;
 
 import javax.swing.*;
+import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -48,8 +49,11 @@ public class Piece extends Point implements Serializable {
         return isCaptured;
     }
 
-    public void setCaptured(boolean captured) {
-        isCaptured = captured;
+    public void setCaptured(boolean isCaptured) {
+        this.isCaptured= isCaptured;
+        if (isCaptured == true){
+            removePiece(this);
+        }
     }
 
     public boolean isHasValidMove() {
@@ -58,6 +62,47 @@ public class Piece extends Point implements Serializable {
 
     public void setHasValidMove(boolean hasValidMove) {
         this.hasValidMove = hasValidMove;
+    }
+
+    public static Piece getPiece(int x, int y, ArrayList<Piece> allPieces){
+        int x2 = (x+64)/64;
+        int y2 = y/64;
+        for (Piece p: allPieces){
+            if (p.getX() == x2 && p.getY() == y2){
+                return p;
+
+            }
+        }
+        return null;
+
+    }
+
+    public void move(int x, int y, ArrayList<Piece> allPieces){
+        for (Piece p: allPieces){
+            if (p.getX() == x && p.getY() == y){
+                p.setCaptured(true);
+            }
+        }
+
+        this.setX(x);
+        this.setY(y);
+
+    }
+
+    public static void removePiece (Piece p){
+        ArrayList<Piece> allPieces = new ArrayList<Piece>();
+        getAllPieces(allPieces);
+        ArrayList<Piece> allBlackPieces = new ArrayList<Piece>();
+        getAllBlackPieces(allBlackPieces);
+        ArrayList<Piece> allBrownPieces = new ArrayList<Piece>();
+        getAllBrownPieces(allBrownPieces);
+        allPieces.remove(p);
+        if (p.getColour().equalsIgnoreCase("black")){
+            allBlackPieces.remove(p);
+        }
+        else if (p.getColour().equalsIgnoreCase("brown")){
+            allBrownPieces.remove(p);
+        }
     }
 
     // Gets the valid moves that an be done by a piece in each direction.
@@ -140,30 +185,30 @@ public class Piece extends Point implements Serializable {
     }
 
     public static ArrayList<Piece> getAllPieces (ArrayList<Piece> allPieces){
-        Piece pbl1 = new Piece(1, 1, "black", false, false, true);
-        Piece pbl2 = new Piece(1, 3, "black", false, false, true);
-        Piece pbl3 = new Piece(2, 2, "black", false, false, true);
-        Piece pbl4 = new Piece(3, 1, "black", false, false, true);
-        Piece pbl5 = new Piece(3, 3, "black", false, false, true);
-        Piece pbl6 = new Piece(4, 2, "black", false, false, true);
-        Piece pbl7 = new Piece(5, 1, "black", true, false, true);
-        Piece pbl8 = new Piece(5, 3, "black", false, false, true);
-        Piece pbl9 = new Piece(6, 2, "black", false, false, true);
-        Piece pbl10 = new Piece(7, 1, "black", false, false, true);
-        Piece pbl11 = new Piece(7, 3, "black", false, false, true);
-        Piece pbl12 = new Piece(8, 2, "black", false, false, true);
-        Piece pbr1 = new Piece(1, 7, "brown", false, false, true);
-        Piece pbr2 = new Piece(2, 8, "brown", false, false, true);
-        Piece pbr3 = new Piece(2, 6, "brown", false, false, true);
-        Piece pbr4 = new Piece(3, 7, "brown", false, false, true);
-        Piece pbr5 = new Piece(4, 8, "brown", false, false, true);
-        Piece pbr6 = new Piece(4, 6, "brown", false, false, true);
-        Piece pbr7 = new Piece(5, 7, "brown", false, false, true);
-        Piece pbr8 = new Piece(6, 6, "brown", false, false, true);
-        Piece pbr9 = new Piece(6, 8, "brown", false, false, true);
-        Piece pbr10 = new Piece(7, 7, "brown", false, false, true);
-        Piece pbr11 = new Piece(8, 6, "brown", false, false, true);
-        Piece pbr12 = new Piece(8, 8, "brown", false, false, true);
+        Piece pbr1 = new Piece(2, 1, "brown", false, false, true);
+        Piece pbr2 = new Piece(2, 3, "brown", false, false, true);
+        Piece pbr3 = new Piece(1, 2, "brown", false, false, true);
+        Piece pbr4 = new Piece(4, 1, "brown", false, false, true);
+        Piece pbr5 = new Piece(4, 3, "brown", false, false, true);
+        Piece pbr6 = new Piece(3, 2, "brown", false, false, true);
+        Piece pbr7 = new Piece(6, 1, "brown", true, false, true);
+        Piece pbr8 = new Piece(6, 3, "brown", false, false, true);
+        Piece pbr9 = new Piece(5, 2, "brown", false, false, true);
+        Piece pbr10 = new Piece(8, 1, "brown", false, false, true);
+        Piece pbr11 = new Piece(8, 3, "brown", false, false, true);
+        Piece pbr12 = new Piece(7, 2, "brown", false, false, true);
+        Piece pbl1 = new Piece(2, 7,  "black", false, false, true);
+        Piece pbl2 = new Piece(1, 8,  "black", false, false, true);
+        Piece pbl3 = new Piece(1, 6,  "black", false, false, true);
+        Piece pbl4 = new Piece(4, 7,  "black", false, false, true);
+        Piece pbl5 = new Piece(3, 8,  "black", false, false, true);
+        Piece pbl6 = new Piece(3, 6,  "black", false, false, true);
+        Piece pbl7 = new Piece(6, 7,  "black", false, false, true);
+        Piece pbl8 = new Piece(5, 6,  "black", false, false, true);
+        Piece pbl9 = new Piece(5, 8,  "black", false, false, true);
+        Piece pbl10 = new Piece(8, 7, "black", false, false, true);
+        Piece pbl11 = new Piece(7, 6, "black", false, false, true);
+        Piece pbl12 = new Piece(7, 8, "black", false, false, true);
         allPieces.add(pbl1);
         allPieces.add(pbl2);
         allPieces.add(pbl3);
@@ -192,18 +237,18 @@ public class Piece extends Point implements Serializable {
     }
 
     public static ArrayList<Piece> getAllBlackPieces (ArrayList<Piece> allBlackPieces){
-        Piece pbl1 = new Piece(1, 1, "black", false, false, true);
-        Piece pbl2 = new Piece(1, 3, "black", false, false, true);
-        Piece pbl3 = new Piece(2, 2, "black", false, false, true);
-        Piece pbl4 = new Piece(3, 1, "black", false, false, true);
-        Piece pbl5 = new Piece(3, 3, "black", false, false, true);
-        Piece pbl6 = new Piece(4, 2, "black", false, false, true);
-        Piece pbl7 = new Piece(5, 1, "black", true, false, true);
-        Piece pbl8 = new Piece(5, 3, "black", false, false, true);
-        Piece pbl9 = new Piece(6, 2, "black", false, false, true);
-        Piece pbl10 = new Piece(7, 1, "black", false, false, true);
-        Piece pbl11 = new Piece(7, 3, "black", false, false, true);
-        Piece pbl12 = new Piece(8, 2, "black", false, false, true);
+        Piece pbl1 = new Piece(2, 7,  "black", false, false, true);
+        Piece pbl2 = new Piece(1, 8,  "black", false, false, true);
+        Piece pbl3 = new Piece(1, 6,  "black", false, false, true);
+        Piece pbl4 = new Piece(4, 7,  "black", false, false, true);
+        Piece pbl5 = new Piece(3, 8,  "black", false, false, true);
+        Piece pbl6 = new Piece(3, 6,  "black", false, false, true);
+        Piece pbl7 = new Piece(6, 7,  "black", false, false, true);
+        Piece pbl8 = new Piece(5, 6,  "black", false, false, true);
+        Piece pbl9 = new Piece(5, 8,  "black", false, false, true);
+        Piece pbl10 = new Piece(8, 7, "black", false, false, true);
+        Piece pbl11 = new Piece(7, 6, "black", false, false, true);
+        Piece pbl12 = new Piece(7, 8, "black", false, false, true);
         allBlackPieces.add(pbl1);
         allBlackPieces.add(pbl2);
         allBlackPieces.add(pbl3);
@@ -220,18 +265,18 @@ public class Piece extends Point implements Serializable {
     }
 
     public static ArrayList<Piece> getAllBrownPieces (ArrayList<Piece> allBrownPieces){
-        Piece pbr1 = new Piece(1, 7, "brown", false, false, true);
-        Piece pbr2 = new Piece(2, 8, "brown", false, false, true);
-        Piece pbr3 = new Piece(2, 6, "brown", false, false, true);
-        Piece pbr4 = new Piece(3, 7, "brown", false, false, true);
-        Piece pbr5 = new Piece(4, 8, "brown", false, false, true);
-        Piece pbr6 = new Piece(4, 6, "brown", false, false, true);
-        Piece pbr7 = new Piece(5, 7, "brown", false, false, true);
-        Piece pbr8 = new Piece(6, 6, "brown", false, false, true);
-        Piece pbr9 = new Piece(6, 8, "brown", false, false, true);
-        Piece pbr10 = new Piece(7, 7, "brown", false, false, true);
-        Piece pbr11 = new Piece(8, 6, "brown", false, false, true);
-        Piece pbr12 = new Piece(8, 8, "brown", false, false, true);
+        Piece pbr1 = new Piece(2, 1, "brown", false, false, true);
+        Piece pbr2 = new Piece(2, 3, "brown", false, false, true);
+        Piece pbr3 = new Piece(1, 2, "brown", false, false, true);
+        Piece pbr4 = new Piece(4, 1, "brown", false, false, true);
+        Piece pbr5 = new Piece(4, 3, "brown", false, false, true);
+        Piece pbr6 = new Piece(3, 2, "brown", false, false, true);
+        Piece pbr7 = new Piece(6, 1, "brown", true, false, true);
+        Piece pbr8 = new Piece(6, 3, "brown", false, false, true);
+        Piece pbr9 = new Piece(5, 2, "brown", false, false, true);
+        Piece pbr10 = new Piece(8, 1, "brown", false, false, true);
+        Piece pbr11 = new Piece(8, 3, "brown", false, false, true);
+        Piece pbr12 = new Piece(7, 2, "brown", false, false, true);
         allBrownPieces.add(pbr1);
         allBrownPieces.add(pbr2);
         allBrownPieces.add(pbr3);

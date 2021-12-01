@@ -35,7 +35,7 @@ public class GUI extends JFrame implements ActionListener {
         frame.setTitle("Draughts Game - Jack Patterson Mini Project");
         frame.setVisible(true);
 
-        /* Making Draughts Board
+            /* Making Draughts Board
         Title of Program: Chess Board
         Author: Screen Works/Khouiled
         Date Written: 6/3/21
@@ -74,20 +74,15 @@ public class GUI extends JFrame implements ActionListener {
 
                 int ind = 0;
                 try {
-                    BufferedImage image = ImageIO.read(new File("Draughts/Images/Piece_Black.png"));
-                    //resizeImage(image,65, 65);
+                    BufferedImage image = ImageIO.read(new File("Draughts/Images/blackdraught.png"));
                     imgs[0] = image;
 
-                    BufferedImage image2 = ImageIO.read(new File("Draughts/Images/Piece_Brown.png"));
-                    //resizeImage(image2,65, 65);
+                    BufferedImage image2 = ImageIO.read(new File("Draughts/Images/browndraught.png"));
                     imgs[1] = image2;
                 }
                 catch (IOException e) {
                     e.printStackTrace();
                 }
-
-
-
 
                 Piece.getAllPieces(allPieces);
                 for(Piece p: allPieces){
@@ -97,17 +92,18 @@ public class GUI extends JFrame implements ActionListener {
                     if(p.getColour().equalsIgnoreCase("brown")){
                         ind=1;
                     }
-                    g.drawImage(imgs[ind], p.getX(), p.getY(), this);
+                    g.drawImage(imgs[ind], (p.getX() * 64)-64, (p.getY() * 64)-64, this);
                 }
             }
         };
+
         frame.addMouseMotionListener(new MouseMotionListener() {
             public void mouseDragged(MouseEvent e) {
-                if(selectedPiece!=null){
+                //if(selectedPiece!=null){
                     selectedPiece.x=e.getX()-32;
                     selectedPiece.y=e.getY()-32;
                     frame.repaint();
-                }
+                //}
             }
 
             public void mouseMoved(MouseEvent e) {
@@ -118,12 +114,17 @@ public class GUI extends JFrame implements ActionListener {
             }
 
             public void mousePressed(MouseEvent e) {
-                //selectedPiece=getPiece(e.getX(), e.getY());
+                selectedPiece = Piece.getPiece(e.getX(),e.getY(),allPieces);
             }
 
             public void mouseReleased(MouseEvent e) {
-                //selectedPiece.move(e.getX()/64, e.getY()/64);
-                frame.repaint();
+                try {
+                    selectedPiece.move((e.getX()+64)/64, e.getY()/64, allPieces);
+                }
+                catch (NullPointerException npe){
+
+                }
+                    frame.repaint();
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -351,17 +352,5 @@ public class GUI extends JFrame implements ActionListener {
         }
     }
 
-    public static void resizeImage(String inputImagePath, int scaledWidth, int scaledHeight) throws IOException {
-        File inputFile = new File(inputImagePath);
-        BufferedImage inputImage = ImageIO.read(inputFile);
-
-        BufferedImage outputImage = new BufferedImage(scaledWidth,
-                scaledHeight, inputImage.getType());
-
-        Graphics2D g2d = outputImage.createGraphics();
-        g2d.drawImage(inputImage, 0, 0, scaledWidth, scaledHeight, null);
-        g2d.dispose();
-
-    }
 
 }
