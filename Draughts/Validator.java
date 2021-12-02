@@ -1,23 +1,31 @@
 package Draughts;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Validator {
 
     // Method checks if the point is on a black square.
-    public static void isValidPoint (ArrayList<Point> allPoints, Point move){
+    public static boolean isValidMove (Piece selectedPiece){
         boolean validPoint = false;
-        for (Point po:allPoints){
-            if (po.getX() == move.getX() && po.getY() == move.getY()) {
-                validPoint = true;
-                break;
+
+        // To fit with changes made for GUI the code used to draw the squared has been repurposed here.
+        boolean white=true;
+        for(int y1= 0;y1<8;y1++){
+            for(int x1= 0;x1<8;x1++){
+                if ((selectedPiece.getX()+64)/64 == x1 && (selectedPiece.getY()+64)/64 == y1){
+                    validPoint =true;
+                }
+                white=!white;
             }
+            white=!white;
         }
         if (validPoint == true){
-            System.out.println("Valid");
+            return true;
         }
         else {
-            System.out.println("Invalid");
+            JOptionPane.showMessageDialog(null,"Invalid Move", "Invalid Move", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
 
@@ -65,7 +73,7 @@ public class Validator {
     public static void pieceVerifier (ArrayList<Piece> allPieces, ArrayList<Piece> allBlackPieces, ArrayList<Piece> allBrownPieces, Player pl1, Player pl2, Point move1, Point move2, Point move3, Point move4, Point p) {
         int testt = 0;
         boolean m1Valid = false, m2Valid = false, m3Valid = false, m4Valid = false;
-        if (pl1.isTheirTurn() == true) {
+        //if (pl1.isTheirTurn() == true) {
             for (Piece pbl : allBlackPieces) {
 
                 Piece.moveChooser(pbl, move1, move2, move3, move4);
@@ -141,7 +149,7 @@ public class Validator {
                     break;
                 }
             }
-        } else if (pl2.isTheirTurn() == true) {
+        //} else if (pl2.isTheirTurn() == true) {
             for (Piece pbr : allBrownPieces) {
 
                 Piece.moveChooser(pbr, move1, move2, move3, move4);
@@ -200,7 +208,7 @@ public class Validator {
                     break;
                 }
             }
-        }
+       // }
     }
 
     public static boolean isValidName(String name){

@@ -12,13 +12,16 @@ public class GUI extends JFrame implements ActionListener {
 
     private JMenu fileMenu;
     private JMenuItem item=null;
-    private final File file = new File("Draughts/PlayerFiles/GUI.data");
+    private final File file = new File("Draughts/GUI.data");
     private JFrame frame = new JFrame();
     public static Piece selectedPiece=null;
     ArrayList<Piece> allPieces = new ArrayList<Piece>();
+    Point point = new Point();
 
+    // GUI won't do exactly as I want in regards to things such as not moving if it's an invalid move, so I've implemented methods
+    // where I can and have set up code how I think it would go if it worked.
     public GUI(){
-        Piece.getAllPieces(allPieces);
+        //Piece.getAllPieces(allPieces); //commented out by JB to prevent logical errors in drawing of board
         createFileMenu();
 
         // Menu Bar
@@ -33,7 +36,9 @@ public class GUI extends JFrame implements ActionListener {
         // Set Frame Basics
         frame.setBounds(10, 10, 525, 570);
         frame.setTitle("Draughts Game - Jack Patterson Mini Project");
-        frame.setVisible(true);
+
+        //frame.setVisible(true); //code moved by JB to end of constructor to ensure game board can
+        //be seen on startup
 
             /* Making Draughts Board
         Title of Program: Chess Board
@@ -46,10 +51,15 @@ public class GUI extends JFrame implements ActionListener {
                       V2: https://drive.google.com/file/d/1W7QNxTbXuhz5D-MgQpRIiwK90R7by9B4/view
         Date Accessed: 29/11/21
         Modifications by Student:
-        -
+        - Adjusted some  calculations for the new code to allow it to place the pieces correctly due to my different logic
+        - Adjusted the mouse movements myself to allow it to pick it up correctly as their one did not work in my code.
+        - Implemented multiple of my own methods into the sections.
+        - Implemented some exceptions to avoid the program crashing.
         */
 
-        JPanel pn=new JPanel(){
+        initialisePieces(); //added by JB to prevent logical errors in drawing of board
+
+        JPanel pn = new JPanel(){
             public void paint(Graphics g) {
                 boolean white=true;
 
@@ -84,7 +94,7 @@ public class GUI extends JFrame implements ActionListener {
                     e.printStackTrace();
                 }
 
-                Piece.getAllPieces(allPieces);
+                //Piece.getAllPieces(allPieces); //commented out by JB to prevent logical issue in drawing of board
                 for(Piece p: allPieces){
                     if(p.getColour().equalsIgnoreCase("black")){
                         ind=0;
@@ -100,9 +110,14 @@ public class GUI extends JFrame implements ActionListener {
         frame.addMouseMotionListener(new MouseMotionListener() {
             public void mouseDragged(MouseEvent e) {
                 //if(selectedPiece!=null){
-                    selectedPiece.x=e.getX()-32;
-                    selectedPiece.y=e.getY()-32;
+                try {
+                    selectedPiece.x = e.getX() - 32;
+                    selectedPiece.y = e.getY() - 32;
                     frame.repaint();
+                }
+                catch (NullPointerException npe){
+
+                }
                 //}
             }
 
@@ -114,11 +129,20 @@ public class GUI extends JFrame implements ActionListener {
             }
 
             public void mousePressed(MouseEvent e) {
-                selectedPiece = Piece.getPiece(e.getX(),e.getY(),allPieces);
+                try {
+                    selectedPiece = Piece.getPiece(e.getX(),e.getY(),allPieces);
+                    point = Point.lastPosition(e.getX(),e.getY());}
+                catch (NullPointerException npe){
+
+                }
+
+
+
             }
 
             public void mouseReleased(MouseEvent e) {
                 try {
+                    Validator.isValidMove(selectedPiece);
                     selectedPiece.move((e.getX()+64)/64, e.getY()/64, allPieces);
                 }
                 catch (NullPointerException npe){
@@ -136,6 +160,62 @@ public class GUI extends JFrame implements ActionListener {
         // End
 
         frame.add(pn);
+        frame.setVisible(true);
+    }
+
+    //added by JB - takes the code from getPieces() to initialise each piece on the board
+    //there was a logical issue with getPieces() as it was resetting the state of each piece to
+    //their initial values each time it got called
+
+    public void initialisePieces() {
+        Piece pbr1 = new Piece(2, 1, "brown", false, false, true);
+        Piece pbr2 = new Piece(2, 3, "brown", false, false, true);
+        Piece pbr3 = new Piece(1, 2, "brown", false, false, true);
+        Piece pbr4 = new Piece(4, 1, "brown", false, false, true);
+        Piece pbr5 = new Piece(4, 3, "brown", false, false, true);
+        Piece pbr6 = new Piece(3, 2, "brown", false, false, true);
+        Piece pbr7 = new Piece(6, 1, "brown", true, false, true);
+        Piece pbr8 = new Piece(6, 3, "brown", false, false, true);
+        Piece pbr9 = new Piece(5, 2, "brown", false, false, true);
+        Piece pbr10 = new Piece(8, 1, "brown", false, false, true);
+        Piece pbr11 = new Piece(8, 3, "brown", false, false, true);
+        Piece pbr12 = new Piece(7, 2, "brown", false, false, true);
+        Piece pbl1 = new Piece(2, 7,  "black", false, false, true);
+        Piece pbl2 = new Piece(1, 8,  "black", false, false, true);
+        Piece pbl3 = new Piece(1, 6,  "black", false, false, true);
+        Piece pbl4 = new Piece(4, 7,  "black", false, false, true);
+        Piece pbl5 = new Piece(3, 8,  "black", false, false, true);
+        Piece pbl6 = new Piece(3, 6,  "black", false, false, true);
+        Piece pbl7 = new Piece(6, 7,  "black", false, false, true);
+        Piece pbl8 = new Piece(5, 6,  "black", false, false, true);
+        Piece pbl9 = new Piece(5, 8,  "black", false, false, true);
+        Piece pbl10 = new Piece(8, 7, "black", false, false, true);
+        Piece pbl11 = new Piece(7, 6, "black", false, false, true);
+        Piece pbl12 = new Piece(7, 8, "black", false, false, true);
+        allPieces.add(pbl1);
+        allPieces.add(pbl2);
+        allPieces.add(pbl3);
+        allPieces.add(pbl4);
+        allPieces.add(pbl5);
+        allPieces.add(pbl6);
+        allPieces.add(pbl7);
+        allPieces.add(pbl8);
+        allPieces.add(pbl9);
+        allPieces.add(pbl10);
+        allPieces.add(pbl11);
+        allPieces.add(pbl12);
+        allPieces.add(pbr1);
+        allPieces.add(pbr2);
+        allPieces.add(pbr3);
+        allPieces.add(pbr4);
+        allPieces.add(pbr5);
+        allPieces.add(pbr6);
+        allPieces.add(pbr7);
+        allPieces.add(pbr8);
+        allPieces.add(pbr9);
+        allPieces.add(pbr10);
+        allPieces.add(pbr11);
+        allPieces.add(pbr12);
     }
 
     public static void main( String[] args ) {
@@ -190,10 +270,16 @@ public class GUI extends JFrame implements ActionListener {
 
         if(!file.exists()) //if the file doesn't already exist, create it
             try {
-                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                //JB commented out the FileOutputStream stuff here and replaced with a call
+                //to createNewFile() instead as a FilNotFoundException was being thrown at
+                //startup time when no file yet existed
+
+                //FileOutputStream fileOutputStream = new FileOutputStream(file);
+                file.createNewFile();
+
                 JOptionPane.showMessageDialog(null, "Created a new file to store the game details!",
                         "New File", JOptionPane.INFORMATION_MESSAGE);
-                fileOutputStream.close();
+                //fileOutputStream.close();
             } catch (FileNotFoundException fnfe) {
                 fnfe.printStackTrace();
                 JOptionPane.showMessageDialog(null, "File could not be found!",
@@ -306,7 +392,7 @@ public class GUI extends JFrame implements ActionListener {
                     }
                 }
             }
-            Player pl1 = new Player(name,colour, false);
+            Player pl1 = new Player(name,colour);
             name = JOptionPane.showInputDialog("Please enter the name of player 2.");
             Validator.isValidName(name);
             if (Validator.isValidName(name) == false){
@@ -320,7 +406,7 @@ public class GUI extends JFrame implements ActionListener {
             else if (isBlack == JOptionPane.NO_OPTION) {
                 colour = "black";
             }
-            Player pl2 = new Player(name,colour, false);
+            Player pl2 = new Player(name,colour);
             ArrayList<Player> allPlayers = new ArrayList<>();
             allPlayers.add(pl1);
             allPlayers.add(pl2);
@@ -351,6 +437,8 @@ public class GUI extends JFrame implements ActionListener {
                     "Problem Writing to File!", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+
 
 
 }

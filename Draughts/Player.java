@@ -6,14 +6,12 @@ import java.io.Serializable;
 public class Player implements Serializable {
     private String playerName;
     private String playerColour;
-    private boolean isTheirTurn;
     private static int playerNumber;
     private int playerNo;
 
-    public Player(String playerName, String playerColour, boolean isTheirTurn) {
+    public Player(String playerName, String playerColour) {
         setPlayerName(playerName);
         setPlayerColour(playerColour);
-        setTheirTurn(isTheirTurn);
         incrementPlayerNo();
         setPlayerNo(playerNumber);
     }
@@ -21,7 +19,6 @@ public class Player implements Serializable {
     public Player(){
         setPlayerName(JOptionPane.showInputDialog("Please enter a player name."));
         setPlayerColour(JOptionPane.showInputDialog("Please enter a colour."));
-        setTheirTurn(false);
         incrementPlayerNo();
         setPlayerNo(playerNumber);
     }
@@ -40,14 +37,6 @@ public class Player implements Serializable {
 
     public void setPlayerColour(String playerColour) {
         this.playerColour = playerColour;
-    }
-
-    public boolean isTheirTurn() {
-        return isTheirTurn;
-    }
-
-    public void setTheirTurn(boolean theirTurn) {
-        isTheirTurn = theirTurn;
     }
 
     public static int getPlayerNumber() {
@@ -73,11 +62,11 @@ public class Player implements Serializable {
     public String toString() {
         return "Player: " + getPlayerNo() + ":" +
                 "\nName: " + getPlayerName() +
-                "\nPiece Colour: " + getPlayerColour() +
-                "\nIs their turn? " + isTheirTurn() + "\n\n";
+                "\nPiece Colour: " + getPlayerColour() + "\n\n";
     }
 
-    public static void isPlayerTurn (Player pl1, Player pl2, int turnCounter){
+    // Removed due to it being unused.
+    /*public static void isPlayerTurn (Player pl1, Player pl2, int turnCounter){
         if (turnCounter == 0){
             turnCounter++;
             pl1.setTheirTurn(true);
@@ -90,5 +79,5 @@ public class Player implements Serializable {
             pl2.setTheirTurn(false);
             pl1.setTheirTurn(true);
         }
-    }
+    }*/
 }

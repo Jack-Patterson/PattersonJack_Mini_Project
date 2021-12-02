@@ -14,7 +14,7 @@ public class Piece extends Point implements Serializable {
         super(x, y);
         setColour(colour);
         setKing(isKing);
-        setCaptured(isCaptured);
+        setCaptured(isCaptured,null);
         setHasValidMove(hasValidMove);
     }
 
@@ -49,10 +49,12 @@ public class Piece extends Point implements Serializable {
         return isCaptured;
     }
 
-    public void setCaptured(boolean isCaptured) {
+    //modified by JB to ensure setCaptured() knows about the array-list of pieces and can therefore pass
+    //on this information to removePiece()
+    public void setCaptured(boolean isCaptured, ArrayList<Piece> allPieces) {
         this.isCaptured= isCaptured;
         if (isCaptured == true){
-            removePiece(this);
+            removePiece(this, allPieces); //modified by JB
         }
     }
 
@@ -66,7 +68,7 @@ public class Piece extends Point implements Serializable {
 
     public static Piece getPiece(int x, int y, ArrayList<Piece> allPieces){
         int x2 = (x+64)/64;
-        int y2 = y/64;
+        int y2 = (y+10)/64;
         for (Piece p: allPieces){
             if (p.getX() == x2 && p.getY() == y2){
                 return p;
@@ -74,29 +76,36 @@ public class Piece extends Point implements Serializable {
             }
         }
         return null;
-
     }
 
     public void move(int x, int y, ArrayList<Piece> allPieces){
         for (Piece p: allPieces){
             if (p.getX() == x && p.getY() == y){
-                p.setCaptured(true);
+                if (p == this){
+
+                }
+                else {
+                    p.setCaptured(true, allPieces); //modified by JB so that setCaptured() knows about the array-list
+                    break; //JB added a break here to prevent a concurrent modification exception
+                }
             }
         }
 
         this.setX(x);
         this.setY(y);
-
     }
 
-    public static void removePiece (Piece p){
-        ArrayList<Piece> allPieces = new ArrayList<Piece>();
-        getAllPieces(allPieces);
+    //JB modified the method so that it can take the array-list of pieces as an argument
+    public static void removePiece (Piece p, ArrayList<Piece> allPieces){
+        //ArrayList<Piece> allPieces = new ArrayList<Piece>(); //commented out by JB as no longer required
+        //allPieces = getAllPieces(allPieces); //commented out by JB as no longer required
         ArrayList<Piece> allBlackPieces = new ArrayList<Piece>();
-        getAllBlackPieces(allBlackPieces);
+        allBlackPieces = getAllBlackPieces(allBlackPieces);
         ArrayList<Piece> allBrownPieces = new ArrayList<Piece>();
-        getAllBrownPieces(allBrownPieces);
+        allBrownPieces = getAllBrownPieces(allBrownPieces);
+
         allPieces.remove(p);
+
         if (p.getColour().equalsIgnoreCase("black")){
             allBlackPieces.remove(p);
         }
@@ -184,8 +193,11 @@ public class Piece extends Point implements Serializable {
         }
     }
 
+    //JB - don't need this method at all now as you are able to access the array-list of pieces by passing it
+    //from the GUI class itself (as you had been doing anyway)
+
     public static ArrayList<Piece> getAllPieces (ArrayList<Piece> allPieces){
-        Piece pbr1 = new Piece(2, 1, "brown", false, false, true);
+        /*Piece pbr1 = new Piece(2, 1, "brown", false, false, true);
         Piece pbr2 = new Piece(2, 3, "brown", false, false, true);
         Piece pbr3 = new Piece(1, 2, "brown", false, false, true);
         Piece pbr4 = new Piece(4, 1, "brown", false, false, true);
@@ -232,7 +244,7 @@ public class Piece extends Point implements Serializable {
         allPieces.add(pbr9);
         allPieces.add(pbr10);
         allPieces.add(pbr11);
-        allPieces.add(pbr12);
+        allPieces.add(pbr12);*/
         return allPieces;
     }
 
