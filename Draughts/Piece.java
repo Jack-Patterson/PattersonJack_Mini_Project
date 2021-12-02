@@ -1,6 +1,7 @@
 package Draughts;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -78,7 +79,7 @@ public class Piece extends Point implements Serializable {
         return null;
     }
 
-    public void move(int x, int y, ArrayList<Piece> allPieces){
+    public void move(int x, int y, ArrayList<Piece> allPieces, ArrayList<Player> allPlayers){
         for (Piece p: allPieces){
             if (p.getX() == x && p.getY() == y){
                 if (p == this){
@@ -89,6 +90,45 @@ public class Piece extends Point implements Serializable {
                     break; //JB added a break here to prevent a concurrent modification exception
                 }
             }
+        }
+        for (Player pl: allPlayers) {
+            int increment = 1;
+            int isBlack = 0;
+
+            if (this.getColour().equalsIgnoreCase("Black")) {
+                if (this.getY() == 1) {
+                    for (Piece p : allPieces) {
+                        if (p == this) {
+                            p.setKing(true);
+                            this.setKing(true);
+                            paintKing(this);
+                        }
+                    }
+                }
+            }
+            else if (this.getColour().equalsIgnoreCase("Brown")) {
+                if (this.getY() == 8) {
+                    for (Piece p : allPieces) {
+                        if (p == this) {
+                            p.setKing(true);
+                            this.setKing(true);
+                            paintKing(this);
+                        }
+                    }
+                }
+            }
+            Player pl1 = new Player();
+            Player pl2 = new Player();
+            Player player = new Player();
+
+            Player.setPlayer(this,pl1,pl2);
+            if (pl1.isPlayerTurn() == true){
+                player = pl1;
+            }
+            else {
+                player = pl2;
+            }
+            JOptionPane.showMessageDialog(null, "Congratulations on being kinged" + player, "King me", JOptionPane.INFORMATION_MESSAGE);
         }
 
         this.setX(x);
@@ -185,19 +225,11 @@ public class Piece extends Point implements Serializable {
             }
     }
 
-    // Allows a piece to choose a move.
-    public static void pieceMoveChooser (Player pl1, Player pl2, Point move1, Point move2, Point move3, Point move4, Piece p, ArrayList<Piece> allPieces, ArrayList<Piece> allBlackPieces, ArrayList<Piece> allBrownPieces, Point po){
-        Validator.pieceVerifier(allPieces,allBlackPieces,allBrownPieces,pl1, pl2,move1,move2,move3,move4,po);
-        if (p.hasValidMove == true){
-            System.out.println("test valid move");
-        }
-    }
-
     //JB - don't need this method at all now as you are able to access the array-list of pieces by passing it
     //from the GUI class itself (as you had been doing anyway)
 
-    public static ArrayList<Piece> getAllPieces (ArrayList<Piece> allPieces){
-        /*Piece pbr1 = new Piece(2, 1, "brown", false, false, true);
+    /*public static ArrayList<Piece> getAllPieces (ArrayList<Piece> allPieces){
+        Piece pbr1 = new Piece(2, 1, "brown", false, false, true);
         Piece pbr2 = new Piece(2, 3, "brown", false, false, true);
         Piece pbr3 = new Piece(1, 2, "brown", false, false, true);
         Piece pbr4 = new Piece(4, 1, "brown", false, false, true);
@@ -244,9 +276,9 @@ public class Piece extends Point implements Serializable {
         allPieces.add(pbr9);
         allPieces.add(pbr10);
         allPieces.add(pbr11);
-        allPieces.add(pbr12);*/
+        allPieces.add(pbr12);
         return allPieces;
-    }
+    }*/
 
     public static ArrayList<Piece> getAllBlackPieces (ArrayList<Piece> allBlackPieces){
         Piece pbl1 = new Piece(2, 7,  "black", false, false, true);
@@ -302,6 +334,15 @@ public class Piece extends Point implements Serializable {
         allBrownPieces.add(pbr11);
         allBrownPieces.add(pbr12);
         return allBrownPieces;
+    }
+
+    public static boolean paintKing (Piece p){
+        if (p.isKing == true){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 }

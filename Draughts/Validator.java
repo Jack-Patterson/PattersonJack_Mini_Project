@@ -29,7 +29,7 @@ public class Validator {
         }
     }
 
-    public static boolean moveIsValid (ArrayList<Piece> allPieces, Piece piece){
+    /*public static boolean moveIsValid (ArrayList<Piece> allPieces, Piece piece){
         int counter = 0;
         for (Piece p:allPieces){
             if (piece.getX() == p.getX() && piece.getY() == p.getY()){
@@ -57,20 +57,20 @@ public class Validator {
         else {
             return false;
         }
-    }
+    }*/
 
     // Checks if a point is within the valid number range.
-    public static boolean isNumber(Point move){
+    /*public static boolean isNumber(Point move){
         if ((move.getX() >= 1 && move.getX() <= 8) && (move.getY() >= 1 && move.getY() <= 8)){
             return true;
         }
         else {
             return false;
         }
-    }
+    }*/
 
     // Checks if a square is free to jump onto.
-    public static void pieceVerifier (ArrayList<Piece> allPieces, ArrayList<Piece> allBlackPieces, ArrayList<Piece> allBrownPieces, Player pl1, Player pl2, Point move1, Point move2, Point move3, Point move4, Point p) {
+    /*public static void pieceVerifier (ArrayList<Piece> allPieces, ArrayList<Piece> allBlackPieces, ArrayList<Piece> allBrownPieces, Player pl1, Player pl2, Point move1, Point move2, Point move3, Point move4, Point p) {
         int testt = 0;
         boolean m1Valid = false, m2Valid = false, m3Valid = false, m4Valid = false;
         //if (pl1.isTheirTurn() == true) {
@@ -96,9 +96,9 @@ public class Validator {
                             if (p1.getX() == move1.getX() && p1.getY() == move1.getY()) {
                                 System.out.println("M1 invalid");
                             }
-                            /*else {
+                            //else {
                                 m1Valid = true;
-                            }*/
+                            //}
                         }
 
                         if (Validator.isNumber(move2) == true) {
@@ -209,7 +209,7 @@ public class Validator {
                 }
             }
        // }
-    }
+    }*/
 
     public static boolean isValidName(String name){
         boolean valid = false;
@@ -226,6 +226,4 @@ public class Validator {
             return false;
         }
     }
-
-
 }

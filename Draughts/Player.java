@@ -6,6 +6,7 @@ import java.io.Serializable;
 public class Player implements Serializable {
     private String playerName;
     private String playerColour;
+    private boolean isPlayerTurn;
     private static int playerNumber;
     private int playerNo;
 
@@ -14,13 +15,15 @@ public class Player implements Serializable {
         setPlayerColour(playerColour);
         incrementPlayerNo();
         setPlayerNo(playerNumber);
+        setPlayerTurn(isPlayerTurn);
     }
 
     public Player(){
-        setPlayerName(JOptionPane.showInputDialog("Please enter a player name."));
-        setPlayerColour(JOptionPane.showInputDialog("Please enter a colour."));
+        setPlayerName(playerName);
+        setPlayerColour(playerColour);
         incrementPlayerNo();
         setPlayerNo(playerNumber);
+        setPlayerTurn(isPlayerTurn);
     }
 
     public String getPlayerName() {
@@ -59,25 +62,40 @@ public class Player implements Serializable {
         playerNumber++;
     }
 
-    public String toString() {
-        return "Player: " + getPlayerNo() + ":" +
-                "\nName: " + getPlayerName() +
-                "\nPiece Colour: " + getPlayerColour() + "\n\n";
+    public boolean isPlayerTurn() {
+        return isPlayerTurn;
     }
 
-    // Removed due to it being unused.
-    /*public static void isPlayerTurn (Player pl1, Player pl2, int turnCounter){
-        if (turnCounter == 0){
-            turnCounter++;
-            pl1.setTheirTurn(true);
+    public void setPlayerTurn(boolean playerTurn) {
+        isPlayerTurn = playerTurn;
+    }
+
+    public String toString() {
+        return "Player: " + getPlayerNo() + ":" +
+                "\nName: " + getPlayerName().toUpperCase() +
+                "\nPiece Colour: " + getPlayerColour().toUpperCase() + "\n";
+    }
+
+    public static void setPlayer (Piece piece, Player pl1, Player pl2){
+        if (piece.getColour().equalsIgnoreCase("Black")){
+            if (pl1.getPlayerColour().equalsIgnoreCase("black")){
+                pl1.setPlayerTurn(true);
+                pl2.setPlayerTurn(false);
+            }
+            else {
+                pl1.setPlayerTurn(false);
+                pl2.setPlayerTurn(true);
+            }
         }
-        else if (turnCounter % 2 == 0){
-            pl1.setTheirTurn(false);
-            pl2.setTheirTurn(true);
+        else if (piece.getColour().equalsIgnoreCase("Brown")){
+            if (pl1.getPlayerColour().equalsIgnoreCase("black")){
+                pl1.setPlayerTurn(false);
+                pl2.setPlayerTurn(true);
+            }
+            else {
+                pl1.setPlayerTurn(true);
+                pl2.setPlayerTurn(false);
+            }
         }
-        else if (turnCounter % 2 == 1){
-            pl2.setTheirTurn(false);
-            pl1.setTheirTurn(true);
-        }
-    }*/
+    }
 }

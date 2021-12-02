@@ -17,6 +17,10 @@ public class GUI extends JFrame implements ActionListener {
     public static Piece selectedPiece=null;
     ArrayList<Piece> allPieces = new ArrayList<Piece>();
     Point point = new Point();
+    ArrayList <Player> allPlayers = new ArrayList<Player>();
+    int isBlack;
+    Player player = new Player();
+
 
     // GUI won't do exactly as I want in regards to things such as not moving if it's an invalid move, so I've implemented methods
     // where I can and have set up code how I think it would go if it worked.
@@ -28,6 +32,7 @@ public class GUI extends JFrame implements ActionListener {
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(fileMenu);
         frame.setJMenuBar(menuBar);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Icon
         ImageIcon icon = new ImageIcon("Draughts/Images/Draughts.jpg");
@@ -36,6 +41,8 @@ public class GUI extends JFrame implements ActionListener {
         // Set Frame Basics
         frame.setBounds(10, 10, 525, 570);
         frame.setTitle("Draughts Game - Jack Patterson Mini Project");
+
+
 
         //frame.setVisible(true); //code moved by JB to end of constructor to ensure game board can
         //be seen on startup
@@ -91,7 +98,6 @@ public class GUI extends JFrame implements ActionListener {
                     imgs[1] = image2;
                 }
                 catch (IOException e) {
-                    e.printStackTrace();
                 }
 
                 //Piece.getAllPieces(allPieces); //commented out by JB to prevent logical issue in drawing of board
@@ -104,6 +110,21 @@ public class GUI extends JFrame implements ActionListener {
                     }
                     g.drawImage(imgs[ind], (p.getX() * 64)-64, (p.getY() * 64)-64, this);
                 }
+                /*try {
+                    if (Piece.paintKing(selectedPiece) == true) {
+                        if (selectedPiece.getColour().equalsIgnoreCase("Black")) {
+                            BufferedImage imageKingB = ImageIO.read(new File("Draughts/Images/blackdraughtking.png"));
+                            g.drawImage(imageKingB, (selectedPiece.getX() * 64) - 64, (selectedPiece.getY() * 64) - 64, this);
+                        }
+                        else if (selectedPiece.getColour().equalsIgnoreCase("Brown")) {
+                            BufferedImage imageKingB = ImageIO.read(new File("Draughts/Images/browndraughtking.png"));
+                            g.drawImage(imageKingB, (selectedPiece.getX() * 64) - 64, (selectedPiece.getY() * 64) - 64, this);
+                        }
+                    }
+                }
+                catch (IOException e){
+
+                }*/
             }
         };
 
@@ -135,15 +156,13 @@ public class GUI extends JFrame implements ActionListener {
                 catch (NullPointerException npe){
 
                 }
-
-
-
             }
 
             public void mouseReleased(MouseEvent e) {
                 try {
-                    Validator.isValidMove(selectedPiece);
-                    selectedPiece.move((e.getX()+64)/64, e.getY()/64, allPieces);
+                    // Will give output but since I can't figure out how to make it jump back it's commented out.
+                    // Validator.isValidMove(selectedPiece);
+                    selectedPiece.move((e.getX()+64)/64, e.getY()/64, allPieces, allPlayers);
                 }
                 catch (NullPointerException npe){
 
@@ -161,6 +180,13 @@ public class GUI extends JFrame implements ActionListener {
 
         frame.add(pn);
         frame.setVisible(true);
+
+        if (!file.exists()) {
+            saveFile();
+        }
+        else {
+            openFile();
+        }
     }
 
     //added by JB - takes the code from getPieces() to initialise each piece on the board
@@ -174,7 +200,7 @@ public class GUI extends JFrame implements ActionListener {
         Piece pbr4 = new Piece(4, 1, "brown", false, false, true);
         Piece pbr5 = new Piece(4, 3, "brown", false, false, true);
         Piece pbr6 = new Piece(3, 2, "brown", false, false, true);
-        Piece pbr7 = new Piece(6, 1, "brown", true, false, true);
+        Piece pbr7 = new Piece(6, 1, "brown", false, false, true);
         Piece pbr8 = new Piece(6, 3, "brown", false, false, true);
         Piece pbr9 = new Piece(5, 2, "brown", false, false, true);
         Piece pbr10 = new Piece(8, 1, "brown", false, false, true);
@@ -329,17 +355,20 @@ public class GUI extends JFrame implements ActionListener {
 
                 allPlayers = (ArrayList<Player>) objectInputStream.readObject();
 
-                System.out.println(allPlayers);
-
                 String PlayerData="";
 
                 if(allPlayers!=null)
-                    for(Player pl: allPlayers)
-                        PlayerData+=pl + "\n";
+                    for(Player pl: allPlayers) {
+                        PlayerData += pl + "\n";
+                        /*if (pl.isPlayerTurn() == true){
+                            player.setPlayerName(player.getPlayerName());
+                        }*/
+                    }
 
                 objectInputStream.close();
 
-                JOptionPane.showMessageDialog(null, "Details of players read from file are:\n\n" + PlayerData,
+                JOptionPane.showMessageDialog(null, "Details of players read from file are:\n\n" + PlayerData + "\n"/* +
+                        "The current players turn is: " + player.getPlayerName()*/,
                         "Opened File", JOptionPane.INFORMATION_MESSAGE);
             }
             catch (IOException ioe) {
@@ -407,15 +436,12 @@ public class GUI extends JFrame implements ActionListener {
                 colour = "black";
             }
             Player pl2 = new Player(name,colour);
-            ArrayList<Player> allPlayers = new ArrayList<>();
             allPlayers.add(pl1);
             allPlayers.add(pl2);
             objectOutputStream.writeObject(allPlayers);
 
-            ArrayList<Piece> allPieces = new ArrayList<>();
             ArrayList<Piece> allBlackPieces = new ArrayList<>();
             ArrayList<Piece> allBrownPieces = new ArrayList<>();
-            Piece.getAllPieces(allPieces);
             Piece.getAllBlackPieces(allBlackPieces);
             Piece.getAllBrownPieces(allBrownPieces);
             objectOutputStream.writeObject(allPieces);
@@ -437,8 +463,4 @@ public class GUI extends JFrame implements ActionListener {
                     "Problem Writing to File!", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-
-
-
 }
