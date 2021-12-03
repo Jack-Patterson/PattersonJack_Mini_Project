@@ -36,7 +36,6 @@ public class Point {
 
     public static Point lastPosition (int x, int y){
         Point p = new Point(x,y);
-        System.out.println(p);
         return p;
     }
 }

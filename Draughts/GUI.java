@@ -180,6 +180,7 @@ public class GUI extends JFrame implements ActionListener {
 
         frame.add(pn);
         frame.setVisible(true);
+        frame.setResizable(false);
 
         if (!file.exists()) {
             saveFile();
