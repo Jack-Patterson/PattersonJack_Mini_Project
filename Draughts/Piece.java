@@ -6,11 +6,42 @@ import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Class identifies pieces on a draughts board.
+ * There are 12 pieces per player.
+ * It inherits its x and y value from the "Point" class.
+ * It implements serializable so that it can be written to a file.
+ *
+ * @author Jack Patterson
+ */
 public class Piece extends Point implements Serializable {
+    /**
+     * It defines the colour of a piece
+     */
     private String colour;
+    /**
+    It determines whether a piece is a king.
+     */
     private boolean isKing;
-    private boolean isCaptured, hasValidMove;
+    /**
+     * It determines if a piece is captured.
+     */
+    private boolean isCaptured;
+    /**
+     * It determines whether there is a valid move for a piece.
+     */
+    private boolean hasValidMove;
 
+    /**
+     *Creates a piece with the given variables.
+     * It should contain information for all variables.
+     * @param x is the x value of the piece.
+     * @param y is the y value of the piece.
+     * @param colour is the colour of the piece. Is only black or brown.
+     * @param isKing determines whether a piece is a king.
+     * @param isCaptured determines whether a piece is captured.
+     * @param hasValidMove determines whether a piece has a valid move.
+     */
     public Piece(int x, int y, String colour, boolean isKing, boolean isCaptured, boolean hasValidMove) {
         super(x, y);
         setColour(colour);
@@ -19,9 +50,10 @@ public class Piece extends Point implements Serializable {
         setHasValidMove(hasValidMove);
     }
 
-    public Piece() {
-    }
-
+    /**
+     * It displays the information of a piece as a String value.
+     * @return a string specifying the state of a piece.
+     */
     public String toString() {
         return "Piece: " +
                 "Co-ordinate: \"" + super.getX() + "," + super.getY() +
@@ -30,26 +62,54 @@ public class Piece extends Point implements Serializable {
                 " Is Captured: " + isCaptured();
     }
 
+    /**
+     * Returns the colour of a piece.
+     * Can only be brown or black.
+     * @return the colour of a piece.
+     */
     public String getColour() {
         return colour;
     }
 
+    /**
+     * Sets the colour of a piece.
+     * Is only black or brown.
+     * @param colour is defined.
+     */
     public void setColour(String colour) {
         this.colour = colour;
     }
 
+    /**
+     * Returns whether a piece is a king.
+     * @return true or false for if a piece is a king.
+     */
     public boolean isKing() {
         return isKing;
     }
 
+    /**
+     * Sets the value of a piece whether it is or isn't a king.
+     * @param king is made either true or false.
+     */
     public void setKing(boolean king) {
         isKing = king;
     }
 
+    /**
+     * Returns a boolean whether a piece is captured or not.
+     * @return true or false whether a piece is captured.
+     */
     public boolean isCaptured() {
         return isCaptured;
     }
 
+    /**
+     * Sets whether a piece is captured.
+     * If a piece is captured it's removed from the "allPieces" ArrayList.
+     * @param isCaptured is set either true or false.
+     * @param allPieces is used to remove the piece from the ArrayList.
+     */
     //modified by JB to ensure setCaptured() knows about the array-list of pieces and can therefore pass
     //on this information to removePiece()
     public void setCaptured(boolean isCaptured, ArrayList<Piece> allPieces) {
@@ -59,26 +119,48 @@ public class Piece extends Point implements Serializable {
         }
     }
 
+    /**
+     * Returns whether a piece has a valid move.
+     * @return if piece has a valid move.
+     */
     public boolean isHasValidMove() {
         return hasValidMove;
     }
 
+    /**
+     * Sets whether a piece has a valid move o not.
+     * @param hasValidMove is made true or false.
+     */
     public void setHasValidMove(boolean hasValidMove) {
         this.hasValidMove = hasValidMove;
     }
 
+    /**
+     * Is used to get a piece from the ArrayList allPieces to get the x and y value of the piece from where the player clicks.
+     * @param x is the x value of where the player clicked.
+     * @param y is the y value of where the player clicked.
+     * @param allPieces is the ArrayList which contains all pieces and is searched.
+     * @return the piece whos x and y values match the selected area. It is then moved to where the mouse is dragged.
+     */
     public static Piece getPiece(int x, int y, ArrayList<Piece> allPieces){
         int x2 = (x+64)/64;
         int y2 = (y+10)/64;
         for (Piece p: allPieces){
             if (p.getX() == x2 && p.getY() == y2){
                 return p;
-
             }
         }
         return null;
     }
 
+    /**
+     * Is a method to move the piece once the mouse is released.
+     * It also verifies whether a piece has reached a valid place to be kinged and if it is calls a method to do so.
+     * @param x is the x value of the place the mouse is released.
+     * @param y is the y value of the place the mouse is released.
+     * @param allPieces is the ArrayList which contains all pieces and is searched.
+     * @param allPlayers is the ArrayList which contains all players and is searched.
+     */
     public void move(int x, int y, ArrayList<Piece> allPieces, ArrayList<Player> allPlayers){
         for (Piece p: allPieces){
             if (p.getX() == x && p.getY() == y){
@@ -135,6 +217,11 @@ public class Piece extends Point implements Serializable {
         this.setY(y);
     }
 
+    /**
+     * Removes the piece if it is taken.
+     * @param p is the piece which is being removed.
+     * @param allPieces is the ArrayList which contains all pieces and is searched.
+     */
     //JB modified the method so that it can take the array-list of pieces as an argument
     public static void removePiece (Piece p, ArrayList<Piece> allPieces){
         //ArrayList<Piece> allPieces = new ArrayList<Piece>(); //commented out by JB as no longer required
@@ -152,77 +239,6 @@ public class Piece extends Point implements Serializable {
         else if (p.getColour().equalsIgnoreCase("brown")){
             allBrownPieces.remove(p);
         }
-    }
-
-    // Gets the valid moves that an be done by a piece in each direction.
-    public static void moveChooser(Piece p, Point move1, Point move2, Point move3, Point move4){
-            //System.out.println("Choose your move!");
-            // Move1 - Forward Left
-            if (p.getX() != 1 && p.getY() != 8 && p.getColour().equals("black")) {
-                move1.setX(p.getX() - 1);
-                move1.setY(p.getY() + 1);
-                //System.out.println("Move 1: Move from " + p.getX() + "," + p.getY() + " to " + move1.toString());
-            }
-            else if (p.getX() != 8 && p.getY() != 1 && p.getColour().equals("brown")){
-                move1.setX(p.getX() + 1);
-                move1.setY(p.getY() - 1);
-                //System.out.println("Move 1: Move from " + p.getX() + "," + p.getY() + " to " + move1.toString());
-            }
-            else {
-                move1.setX(0);
-                move1.setY(0);
-            }
-
-            // Move2 - Forward Right
-            if (p.getX() != 8 && p.getY() != 8 && p.getColour().equals("black")) {
-                move2.setX(p.getX() + 1);
-                move2.setY(p.getY() + 1);
-                //System.out.println("Move 2: Move from " + p.getX() + "," + p.getY() + " to " + move2.toString());
-            }
-            else if (p.getX() != 1 && p.getY() != 1 && p.getColour().equals("brown")) {
-                move2.setX(p.getX() - 1);
-                move2.setY(p.getY() - 1);
-                //System.out.println("Move 2: Move from " + p.getX() + "," + p.getY() + " to " + move2.toString());
-            }
-            else {
-                move2.setX(0);
-                move2.setY(0);
-            }
-
-            if (p.isKing() == true) {
-                //System.out.println("\nBecause you are a king you also have the following moves:");
-                // Move3 - Backwards Left
-                if (p.getX() != 1 && p.getY() != 1 && p.getColour().equals("black")) {
-                    move3.setX(p.getX() - 1);
-                    move3.setY(p.getY() - 1);
-                    //System.out.println("Move 3: Move from " + p.getX() + "," + p.getY() + " to " + move3.toString());
-                }
-                else if (p.getX() != 8 && p.getY() != 8 && p.getColour().equals("brown")) {
-                    move3.setX(p.getX() + 1);
-                    move3.setY(p.getY() + 1);
-                    //System.out.println("Move 3: Move from " + p.getX() + "," + p.getY() + " to " + move3.toString());
-                }
-                else {
-                    move3.setX(0);
-                    move4.setY(0);
-                }
-
-                // Move4 - Backwards Right
-                if (p.getX() != 8 && p.getY() != 1 && p.getColour().equals("black")) {
-                    move4.setX(p.getX() + 1);
-                    move4.setY(p.getY() - 1);
-                    //System.out.println("Move 4: Move from " + p.getX() + "," + p.getY() + " to " + move4.toString());
-                }
-                else if (p.getX() != 1 && p.getY() != 8 && p.getColour().equals("brown")) {
-                    move4.setX(p.getX() - 1);
-                    move4.setY(p.getY() + 1);
-                    //System.out.println("Move 4: Move from " + p.getX() + "," + p.getY() + " to " + move4.toString());
-                }
-                else {
-                    move1.setX(5);
-                    move1.setY(5);
-                }
-            }
     }
 
     //JB - don't need this method at all now as you are able to access the array-list of pieces by passing it
@@ -280,6 +296,11 @@ public class Piece extends Point implements Serializable {
         return allPieces;
     }*/
 
+    /**
+     * Used to get an ArrayList of all black pieces.
+     * @param allBlackPieces is the ArrayList being filled.
+     * @return all the black Pieces into this array.
+     */
     public static ArrayList<Piece> getAllBlackPieces (ArrayList<Piece> allBlackPieces){
         Piece pbl1 = new Piece(2, 7,  "black", false, false, true);
         Piece pbl2 = new Piece(1, 8,  "black", false, false, true);
@@ -308,6 +329,11 @@ public class Piece extends Point implements Serializable {
         return allBlackPieces;
     }
 
+    /**
+     * Used to get an ArrayList of all browm pieces.
+     * @param allBrownPieces is the ArrayList being filled.
+     * @return all the brown Pieces into this array.
+     */
     public static ArrayList<Piece> getAllBrownPieces (ArrayList<Piece> allBrownPieces){
         Piece pbr1 = new Piece(2, 1, "brown", false, false, true);
         Piece pbr2 = new Piece(2, 3, "brown", false, false, true);
@@ -336,6 +362,11 @@ public class Piece extends Point implements Serializable {
         return allBrownPieces;
     }
 
+    /**
+     * Paints the king piece onto the board.
+     * @param p is the piece being kinged.
+     * @return the method being true.
+     */
     public static boolean paintKing (Piece p){
         if (p.isKing == true){
             return true;
