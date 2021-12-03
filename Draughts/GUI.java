@@ -19,6 +19,8 @@ public class GUI extends JFrame implements ActionListener {
     Point point = new Point();
     ArrayList <Player> allPlayers = new ArrayList<Player>();
     int isBlack;
+    Player pl1 = new Player();
+    Player pl2 = new Player();
     Player player = new Player();
 
 
